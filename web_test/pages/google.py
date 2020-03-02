@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+from web_test.helpers.allure.report import step
+
 """
 The previous line is needed to type hint classes that are defined later
 like Results class below
@@ -22,22 +25,27 @@ class Google:
     def __init__(self):
         self.results = browser.all('#search .g')
 
+    @step
     def open(self) -> Google:
         browser.open('https://google.com/ncr')
         return self
 
+    @step
     def search(self, text) -> Google:
         browser.element(by.name('q')).type(text).press_enter()
         return self
 
+    @step
     def should_have_result(self, index, text) -> Google:
         self.results[index].should(have.text(text))
         return self
 
+    @step
     def should_have_results_amount_at_least(self, number) -> Google:
         self.results.should(have.size_greater_than_or_equal(number))
         return self
 
+    @step
     def follow_result_link(self, text):
         """
         Here we could return "next page object",

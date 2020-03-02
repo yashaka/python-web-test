@@ -1,6 +1,7 @@
 from selene import by, have
 from selene.support.shared import browser
 
+from web_test.helpers.allure.report import step
 
 """
 This is a simplest possible implementation of pages model. 
@@ -37,6 +38,7 @@ Hence, better not to over-complicate;)
 results = browser.all('.search-result-container')
 
 
+@step
 def visit():
     """
     Also, here... we have to rename open to visit,
@@ -46,18 +48,22 @@ def visit():
     browser.open('https://www.searchencrypt.com')
 
 
+@step
 def search(text):
     browser.element(by.name('q')).type(text).press_enter()
 
 
+@step
 def should_have_result(index, text):
     results[index].should(have.text(text))
 
 
+@step
 def should_have_results_amount_at_least(number):
     results.should(have.size_greater_than_or_equal(number))
 
 
+@step
 def follow_result_link(text):
     """
     Here we could return "next page object",

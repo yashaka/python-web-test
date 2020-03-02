@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+from web_test.helpers.allure.report import step
+
 """
 The previous line is needed to type hint classes that are defined later
 like Results class below
@@ -7,7 +10,6 @@ like Results class below
 
 from selene import by, have
 from selene.support.shared import browser
-
 
 """
 Instead of "class with methods + object" below
@@ -43,9 +45,11 @@ Also take into account your audience:
 
 
 class Duckduckgo:
+    @step
     def open(self):
         browser.open('https://duckduckgo.com/')
 
+    @step
     def search(self, text):
         browser.element(by.name('q')).type(text).press_enter()
 
@@ -59,14 +63,17 @@ class Results:
     def __init__(self):
         self.elements = browser.all('.results_links_deep')
 
+    @step
     def should_have_size_at_least(self, amount) -> Results:
         self.elements.should(have.size_greater_than_or_equal(amount))
         return self
 
+    @step
     def should_have_text(self, index, value) -> Results:
         self.elements[index].should(have.text(value))
         return self
 
+    @step
     def follow_link(self, index) -> Results:
         self.elements[index].element('a').click()
         return self

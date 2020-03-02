@@ -1,7 +1,7 @@
-from selene_pytest_template.pages.duckduckgo import Duckduckgo
-from selene_pytest_template.pages.ecosia import Ecosia
-from selene_pytest_template.pages.github import Github
-from selene_pytest_template.pages.google import Google
+from web_test.pages.duckduckgo import Duckduckgo
+from web_test.pages.ecosia import Ecosia
+from web_test.pages.github import Github
+from web_test.pages.google import Google
 
 """
 This module is optional. 
@@ -11,7 +11,7 @@ and the word "web" is already a good name describing exactly what we want.
 The idea is to provide a one entry point to all PageObjects
 So you can import just this entry point in your test:
 
-    from selene_pytest_template.pages import web
+    from web_test.pages import web
     
 and then fluently access any page:
 
@@ -23,9 +23,9 @@ and then fluently access any page:
     
 instead of direct import:
 
-    from selene_pytest_template.pages.ecosia import ecosia
-    from selene_pytest_template.pages.searchencrypt import searchencrypt
-    from selene_pytest_template.pages.duckduckgo import duckduckgo
+    from web_test.pages.ecosia import ecosia
+    from web_test.pages.searchencrypt import searchencrypt
+    from web_test.pages.duckduckgo import duckduckgo
 
     ecosia
     # ...
@@ -35,12 +35,12 @@ instead of direct import:
     
 Probably instead of:
 
-    selene_pytest_template/web.py
+    web_test/web.py
     
 you can use any of:
 
-    selene_pytest_template/pages/web.py
-    selene_pytest_template/pages/__init__.py
+    web_test/pages/web.py
+    web_test/pages/__init__.py
 
 we type hint variables below to allow better IDE support,
 e.g. for Quick Fix feature...
@@ -60,12 +60,12 @@ If we want the IDE in case of "quick fixing imports" to
 show for us ability to directly import searchencrypt from web.py
 then we have to do something like this:
 
-    from selene_pytest_template.pages import searchencrypt as _searchencrypt
+    from web_test.pages import searchencrypt as _searchencrypt
     searchencrypt = _searchencrypt
     
 But probably you will never need it;)
 Hence keep things simple;)
 """
-from selene_pytest_template.pages import searchencrypt
+from web_test.pages import searchencrypt
 
 github: Github = Github()

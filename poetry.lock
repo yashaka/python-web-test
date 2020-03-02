@@ -1,5 +1,31 @@
 [[package]]
 category = "dev"
+description = "Allure pytest integration"
+name = "allure-pytest"
+optional = false
+python-versions = "*"
+version = "2.8.11"
+
+[package.dependencies]
+allure-python-commons = "2.8.11"
+pytest = ">=4.5.0"
+six = ">=1.9.0"
+
+[[package]]
+category = "dev"
+description = "Common module for integrate allure with python-based frameworks"
+name = "allure-python-commons"
+optional = false
+python-versions = "*"
+version = "2.8.11"
+
+[package.dependencies]
+attrs = ">=16.0.0"
+pluggy = ">=0.4.0"
+six = ">=1.9.0"
+
+[[package]]
+category = "dev"
 description = "apipkg: namespace control and lazy-import mechanism"
 name = "apipkg"
 optional = false
@@ -326,10 +352,18 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "0007327a84befc481ab26af7356c527b88763a95f7450c4a0524851bb53af411"
+content-hash = "2e7dd79d5ba5d00865e11369bc71e1fcfd748d5a4252f34a633587579289a60d"
 python-versions = "^3.7"
 
 [metadata.files]
+allure-pytest = [
+    {file = "allure-pytest-2.8.11.tar.gz", hash = "sha256:67f1b418bf603177066b14af7b5c7c72a33edf2caaf2b29e1cd0efc1cc285b47"},
+    {file = "allure_pytest-2.8.11-py3-none-any.whl", hash = "sha256:01d29f50d3a91ac5cd5707988ea7e39041f428ac7c35ad8777e80aba4dff21ec"},
+]
+allure-python-commons = [
+    {file = "allure-python-commons-2.8.11.tar.gz", hash = "sha256:0114c519e4ad361436a46671b9639e5b61a7d21838740ca2b540ccb6b3d9d25a"},
+    {file = "allure_python_commons-2.8.11-py3-none-any.whl", hash = "sha256:5df696028a33e0b24b44c1f199b96cb1b176f5711bf0c5930ac3aa95c4ae01eb"},
+]
 apipkg = [
     {file = "apipkg-1.5-py2.py3-none-any.whl", hash = "sha256:58587dd4dc3daefad0487f6d9ae32b4542b185e1c36db6993290e7c41ca2b47c"},
     {file = "apipkg-1.5.tar.gz", hash = "sha256:37228cda29411948b422fae072f57e31d3396d2ee1c9783775980ee9c9990af6"},

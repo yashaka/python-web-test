@@ -1,4 +1,4 @@
-from selene_pytest_template import web
+from web_test import web
 
 
 def test_duckduckgo():
@@ -20,8 +20,8 @@ def test_duckduckgo():
     web.github.should_be_on('yashaka/selene')
 
 
-from selene_pytest_template.pages.ecosia import ecosia
-from selene_pytest_template.pages.github import github
+from web_test.pages.ecosia import ecosia
+from web_test.pages.github import github
 
 
 def test_ecosia():
@@ -69,7 +69,8 @@ def test_google():
 
     web.google\
         .search('selene python')\
-        .should_have_results_amount_at_least(5)
+        .should_have_results_amount_at_least(12)
+        # .should_have_results_amount_at_least(5)
 
     web.google.follow_result_link('User-oriented Web UI browser tests')
     web.github.should_be_on('yashaka/selene')

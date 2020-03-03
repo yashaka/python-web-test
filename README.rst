@@ -58,7 +58,7 @@ Or with xdist parallelisation::
 
 Or with allure reports generated::
 
-    pytest --allurdir=reports tests/
+    pytest --alluredir=reports tests/
 
 Details
 -------
@@ -109,7 +109,7 @@ More examples
 
 Running a single "test case" with allure report generated::
 
-    pytest --allurdir=reports tests/test_search_engines_should_search.py::test_google
+    pytest --alluredir=reports tests/test_search_engines_should_search.py::test_google
 
 Resources and useful links
 --------------------------

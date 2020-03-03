@@ -35,7 +35,7 @@ Hence, better not to over-complicate;)
 """
 
 
-results = browser.all('.search-result-container')
+results = browser.all('.web-result')
 
 
 @step
@@ -50,7 +50,9 @@ def visit():
 
 @step
 def search(text):
-    browser.element(by.name('q')).type(text).press_enter()
+    browser.element(by.name('q')).type(text)
+    submit = browser.element('.fas.fa-search')
+    submit.click()
 
 
 @step
@@ -83,3 +85,4 @@ def follow_result_link(text):
       (it's always there)
     """
     results.element_by(have.text(text)).element('a').click()
+    browser.switch_to_next_tab()

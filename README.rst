@@ -91,7 +91,7 @@ Features supported:
     * inline params
     * context of step-function (object, class or module)
 
-  * screenshot and page-source attached to failed steps
+  * last screenshot and page-source are attached to test body on failure
 
 * parallel execution via xdist
 * PageObjects examples of different styles
@@ -126,7 +126,7 @@ This template is yet in progress. **Todos** are:
 - more default options examples, like headless mode for browser
 - allure reporting integrated
 
-  - move attached snapshots from test step to test body
+  - log low level selene actions via corresponding selene hooks
 
 - test suites via pytest marks/tags
 

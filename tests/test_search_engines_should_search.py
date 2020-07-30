@@ -28,8 +28,8 @@ def test_ecosia():
     ecosia.open()
 
     ecosia.search('selene python')
-    ecosia.results\
-        .should_have_size_at_least(5)\
+    ecosia.results \
+        .should_have_size_at_least(5) \
         .should_have_text(0, 'User-oriented Web UI browser tests')
 
     ecosia.results.follow_link(0)
@@ -67,10 +67,10 @@ def test_google():
     """
     web.google.open()
 
-    web.google\
-        .search('selene python')\
+    web.google \
+        .search('selene python') \
         .should_have_results_amount_at_least(12)
-        # .should_have_results_amount_at_least(5)
+    # .should_have_results_amount_at_least(5)
 
     web.google.follow_result_link('User-oriented Web UI browser tests')
     web.github.should_be_on('yashaka/selene')

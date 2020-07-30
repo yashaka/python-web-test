@@ -2,11 +2,12 @@
 name = "web-test"
 version = "0.1.0"
 description = "python + pytest + selene + allure web tests project template"
-authors = ["yashaka <yashaka@gmail.com>"]
+authors = ["Iakiv Kramarenko <yashaka@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-selene = {version = "^2.0.0-alpha.21", allow-prereleases = true}
+selene = {version = "^2.0.0-alpha.30", allow-prereleases = true}
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

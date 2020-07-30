@@ -43,9 +43,8 @@ class Results:
         return self
 
     @step
-    def follow_link(self, index) -> Results:
+    def follow_link(self, index):
         self.elements[index].element('a').click()
-        return self
 
 
 ecosia: Ecosia = Ecosia()

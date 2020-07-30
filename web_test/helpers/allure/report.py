@@ -6,23 +6,27 @@ from allure_commons import plugin_manager
 from allure_commons.utils import uuid4, func_parameters, represent
 
 
-def step(title):
+def step(title, display_params=True):
     if callable(title):
         func = title
         name: str = title.__name__
         # todo: move to StepContext
         display_name = re.sub(r'_+', ' ', name)
-        return StepContext(display_name, {})(func)
+        return StepContext(
+            display_name,
+            {},
+            display_params=display_params)(func)
     else:
         return StepContext(title, {})
 
 
 class StepContext:
 
-    def __init__(self, title, params):
+    def __init__(self, title, params, display_params=True):
         self.title = title
         self.params = params
         self.uuid = uuid4()
+        self.display_params = display_params
 
     def __enter__(self):
         plugin_manager.hook.start_step(
@@ -47,14 +51,14 @@ class StepContext:
             params_values = list(params.values())
             stringified_params = ', '.join(params_values)
 
-            def display_params():
+            def params_to_display():
                 if not params_values:
                     return ''
                 if len(params_values) == 1:
                     return ' ' + params_values[0]
                 return ': ' + stringified_params
 
-            def display_context():
+            def context():
                 # todo: refactor naming and make idiomatic
                 ismethod = lambda fn: \
                     args and inspect.getfullargspec(fn).args[0] in ['cls', 'self']
@@ -75,7 +79,10 @@ class StepContext:
 
                 return f' [{context}]'
 
-            name_to_display = self.title + display_params() + display_context()
+            name_to_display = \
+                self.title + \
+                (params_to_display() if self.display_params else '') + \
+                context()
 
             with StepContext(name_to_display, params):
                 return func(*args, **kw)

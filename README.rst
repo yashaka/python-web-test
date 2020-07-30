@@ -4,7 +4,7 @@ Selene + Pytest tests project template
 Overview and general guidelines
 -------------------------------
 
-This is a template project. It's supposed to be cloned or downloaded and edited according your needs.
+This is a template project. It's supposed to be cloned or downloaded and edited according to your needs.
 
 The project itself reflects an implementation of acceptance web ui tests for a "web", i.e. as "application under test" we consider here the "whole web", under "root pages" we mean "web sites", under "sub-pages" we mean "web site pages". To apply this template to your context, usually you would need to rename all "web" entries in names or some option values in config files (like ``pyproject.toml``) to "your_project_name" with the following exceptions:
 

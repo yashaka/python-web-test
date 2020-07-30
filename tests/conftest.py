@@ -5,9 +5,22 @@ from _pytest.runner import CallInfo
 from selene.core.exceptions import TimeoutException
 from selene.support.shared import browser
 
+from tests import project
+
+
+def pytest_addoption(parser):
+    project.Config.register(parser)
+
+
+@pytest.fixture
+def config(request):
+    if not project.config:
+        project.config = project.Config(request)
+    return project.config
+
 
 @pytest.fixture(scope='function', autouse=True)
-def browser_management():
+def browser_management(config):
     """
     Here, before yield,
     goes all "setup" code for each test case
@@ -41,7 +54,9 @@ def browser_management():
     #     return error
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
-    browser.config.timeout = 3
+    browser.config.timeout = config.timeout
+    browser.config.save_page_source_on_failure \
+        = config.save_page_source_on_failure
 
     # todo: add your before setup here...
 

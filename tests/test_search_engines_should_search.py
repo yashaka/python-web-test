@@ -1,3 +1,5 @@
+import allure
+
 from web_test import web
 
 
@@ -6,15 +8,15 @@ def test_duckduckgo():
     Below we access pageobjects (duckduckgo, github)
     through a so called "root entry point" (implemented as python module)
     aka "application manager" or "pages manager".
-    You also can access pageobjects directcly, like in test_ecosia() test
+    You also can access pageobjects directly, like in test_ecosia() test
     Read more on this in web.py module docstrings
     """
     web.duckduckgo.open()
 
-    web.duckduckgo.search('selene python')
+    web.duckduckgo.search('yashaka selene python')
     web.duckduckgo.results \
         .should_have_size_at_least(5) \
-        .should_have_text(0, 'User-oriented Web UI browser tests')
+        .should_have_text(0, 'User-oriented We UI browser tests')
 
     web.duckduckgo.results.follow_link(0)
     web.github.should_be_on('yashaka/selene')

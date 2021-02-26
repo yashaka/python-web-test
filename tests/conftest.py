@@ -2,10 +2,9 @@ import pytest
 import allure
 from _pytest.nodes import Item
 from _pytest.runner import CallInfo
-from selene.core.exceptions import TimeoutException
 from selene.support.shared import browser
 
-from tests import project
+import project
 
 
 def pytest_addoption(parser):
@@ -96,10 +95,10 @@ def pytest_runtest_makereport(item: Item, call: CallInfo):
     # All code prior to yield statement would be ran prior
     # to any other of the same fixtures defined
 
-    outcome = yield # Run all other pytest_runtest_makereport non wrapped hooks
+    outcome = yield  # Run all other pytest_runtest_makereport non wrapped hooks
     result = outcome.get_result()
 
-    if result.when == "call" and result.failed:
+    if result.when == 'call' and result.failed:
         last_screenshot = browser.config.last_screenshot
         if last_screenshot and not last_screenshot == prev_test_screenshot:
             allure.attach.file(source=last_screenshot,

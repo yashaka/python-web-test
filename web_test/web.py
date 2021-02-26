@@ -4,7 +4,8 @@ from web_test.pages.github import Github
 from web_test.pages.google import Google
 
 """
-This module is optional. 
+This module is optional.
+It is needed to implement an ApplicationManager pattern
 Usually it makes sense to call it `app.py`,
 but in the context of this template project, our app is "all web", 
 and the word "web" is already a good name describing exactly what we want.
@@ -48,17 +49,23 @@ e.g. for Quick Fix feature...
 duckduckgo: Duckduckgo = Duckduckgo()
 ecosia: Ecosia = Ecosia()
 google: Google = Google()
+github: Github = Github()
+"""
+we need type hints above 
+-  to make Autocomplete and Quick Fix features work 
+  - at least in some versions of PyCharm
+"""
 
 
 """
-searchencrypt is "PageModule" not "PageObject"
-that's we don't have to introduce a new variable for page's object
+searchencrypt is kind of "PageModule" not "PageObject"
+that's why we don't have to introduce a new variable for page's object
 just an import is enough
 
 There is one nuance though...
 If we want the IDE in case of "quick fixing imports" to 
 show for us ability to directly import searchencrypt from web.py
-then we have to do something like this:
+then we might have to do something like this in some versions of your IDEs:
 
     from web_test.pages import searchencrypt as _searchencrypt
     searchencrypt = _searchencrypt
@@ -67,5 +74,3 @@ But probably you will never need it;)
 Hence keep things simple;)
 """
 from web_test.pages import searchencrypt
-
-github: Github = Github()

@@ -38,7 +38,7 @@ Given installed:
 
 * `pyenv + python <https://github.com/pyenv/pyenv>`_
 * `poetry <https://poetry.eustace.io/docs/#installation>`_
-* `allure <https://docs.qameta.io/allure/#_installing_a_commandline/>`_
+* `allure <https://docs.qameta.io/allure/#_installing_a_commandline>`_
 
 Do in your favourite terminal::
 

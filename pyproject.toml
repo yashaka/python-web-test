@@ -5,7 +5,7 @@ description = "python + pytest + selene + allure web tests project template"
 authors = ["Iakiv Kramarenko <yashaka@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 selene = {version = "^2.0.0-alpha.30", allow-prereleases = true}
 
 

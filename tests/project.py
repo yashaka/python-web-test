@@ -19,6 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+from typing import Optional
+
 from web_test.helpers.pytest.settings import Option
 
 
@@ -57,4 +59,4 @@ class Config:
             option.register(parser)
 
 
-config: Config = None  # to be set by pytest fixtures
+config: Optional[Config] = None  # to be set by pytest fixtures

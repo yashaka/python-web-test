@@ -1,5 +1,3 @@
-import allure
-
 from web_test import web
 
 
@@ -16,7 +14,7 @@ def test_duckduckgo():
     web.duckduckgo.search('yashaka selene python')
     web.duckduckgo.results \
         .should_have_size_at_least(5) \
-        .should_have_text(0, 'User-oriented We UI browser tests')
+        .should_have_text(0, 'User-oriented Web UI browser tests')
 
     web.duckduckgo.results.follow_link(0)
     web.github.should_be_on('yashaka/selene')
@@ -29,7 +27,7 @@ from web_test.pages.github import github
 def test_ecosia():
     ecosia.open()
 
-    ecosia.search('selene python')
+    ecosia.search('yashaka selene python')
     ecosia.results \
         .should_have_size_at_least(5) \
         .should_have_text(0, 'User-oriented Web UI browser tests')
@@ -70,9 +68,9 @@ def test_google():
     web.google.open()
 
     web.google \
-        .search('selene python') \
-        .should_have_results_amount_at_least(12)
-    # .should_have_results_amount_at_least(5)
+        .search('yashaka selene python') \
+        .should_have_results_amount_at_least(12)  # demo-failure ;)
+    #   .should_have_results_amount_at_least(5)
 
     web.google.follow_result_link('User-oriented Web UI browser tests')
     web.github.should_be_on('yashaka/selene')
@@ -91,8 +89,8 @@ def test_searchencrypt():
     """
     web.searchencrypt.visit()
 
-    web.searchencrypt.search('selene python')
+    web.searchencrypt.search('github')
     web.searchencrypt.should_have_results_amount_at_least(5)
 
-    web.searchencrypt.follow_result_link('User-oriented Web UI browser tests')
-    web.github.should_be_on('yashaka/selene')
+    web.searchencrypt.follow_result_link('Where the world builds software')
+    web.github.should_be_on('GitHub')

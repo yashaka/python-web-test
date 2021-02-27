@@ -40,6 +40,8 @@ Given installed:
 * `poetry <https://poetry.eustace.io/docs/#installation>`_
 * `allure <https://docs.qameta.io/allure/#_installing_a_commandline>`_
 
+Clone template with ``git clone``
+
 Do in your favourite terminal::
 
     cd $YOUR_PROJECT_FOLDER_PATH
@@ -51,12 +53,12 @@ So you can run your tests via::
 
     pytest tests/
 
-Or with xdist parallelisation::
+Or with `xdist <https://pypi.org/project/pytest-xdist/>`_ parallelisation::
 
     pytest -n 4 tests/
 
 
-Or with allure reports generated::
+Or with `allure <https://docs.qameta.io/allure/#_installing_a_commandline>`_ reports generated::
 
     pytest --alluredir=reports tests/
 
@@ -92,6 +94,10 @@ Features supported:
     * context of step-function (object, class or module)
 
   * last screenshot and page-source are attached to test body on failure
+
+  * use allure webserver to see reports with webui::
+
+        allure serve reports
 
 * parallel execution via xdist
 * PageObjects examples of different styles

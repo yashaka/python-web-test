@@ -43,6 +43,20 @@ def test_duckduckgo():
 
     GO FOR:
     * KISS (Keep It Simple Stupid), straightforward style
+      * easy for newbies in automation (no need to learn modules/OOP(classes))
+      * easy for some DEVs if they will use these tests (and they should!)
+        they know selectors and internals of app they develop
+        hence, building more abstractions (modules/classes) on top of more
+        low level straightforward code (like below) would add too much complexity
+        to them, and harder in day-to-day usage
+
+    TRADEOFFS:
+    - given selectors are duplicated all over the project code base
+      when you want to change it
+      then you have to use global Find&Replace text,
+           with sometimes pretty thorough manual checks line by line
+           all places where the change will be applied.
+           You CAN'T use some refactoring features of IDE like Refactor>Rename
     """
 
     browser.open('https://duckduckgo.com/')
@@ -70,6 +84,14 @@ def test_duckduckgo_():
         hence, building more abstractions (modules/classes) on top of more
         low level straightforward code (like below) would add too much complexity
         to them, and harder in day-to-day usage
+
+    TRADEOFFS:
+    - given selectors are duplicated all over the project code base
+      when you want to change it
+      then you have to use global Find&Replace text,
+           with sometimes pretty thorough manual checks line by line
+           all places where the change will be applied.
+           You CAN'T use some refactoring features of IDE like Refactor>Rename
     """
     browser.open('https://duckduckgo.com/')
 
@@ -99,6 +121,7 @@ def test_duckduckgo__():
     - steps can't be reused                                                     # todo: there are some ideas though;)
     - too much of test-like-steps might made code less focused, too vague
       especially when repeating the logic or test data as it is already used in code
+    - Manual old-fashioned Find&Replace instead of Refactor>Rename
 
     NOTES
     * you can use 3 AAA naming over BDD:
@@ -184,7 +207,8 @@ def test_duckduckgo___():
 
     TRADEOFFS:
     - extra "texts" to support in code
-    - steps can't be reused                                                     # todo: there are some ideas though;)
+    - steps can't be reused
+    - Manual old-fashioned Find&Replace instead of Refactor>Rename
     """
 
     @given()

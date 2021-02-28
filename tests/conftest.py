@@ -5,6 +5,7 @@ from _pytest.runner import CallInfo
 from selene.support.shared import browser
 
 import project
+import web_test.helpers.allure.gherkin
 
 
 def pytest_addoption(parser):
@@ -98,7 +99,7 @@ def pytest_runtest_makereport(item: Item, call: CallInfo):
     outcome = yield  # Run all other pytest_runtest_makereport non wrapped hooks
     result = outcome.get_result()
 
-    if result.when == 'call' and result.failed:
+    if web_test.helpers.allure.gherkin.when == 'call' and result.failed:
         last_screenshot = browser.config.last_screenshot
         if last_screenshot and not last_screenshot == prev_test_screenshot:
             allure.attach.file(source=last_screenshot,

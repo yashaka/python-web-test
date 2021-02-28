@@ -36,11 +36,11 @@ instead of direct import:
     
 Probably instead of:
 
-    web_test/web.py
+    web_test/app.py
     
 you can use any of:
 
-    web_test/pages/web.py
+    web_test/pages/app.py
     web_test/pages/__init__.py
 
 we type hint variables below to allow better IDE support,
@@ -64,7 +64,7 @@ just an import is enough
 
 There is one nuance though...
 If we want the IDE in case of "quick fixing imports" to 
-show for us ability to directly import searchencrypt from web.py
+show for us ability to directly import searchencrypt from app.py
 then we might have to do something like this in some versions of your IDEs:
 
     from web_test.pages import searchencrypt as _searchencrypt

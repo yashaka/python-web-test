@@ -61,7 +61,7 @@ class Duckduckgo:
 class Results:
 
     def __init__(self):
-        self.elements = browser.all('.results_links_deep')
+        self.elements = browser.all('.result__body')
 
     @step
     def should_have_size_at_least(self, amount) -> Results:
@@ -74,7 +74,7 @@ class Results:
         return self
 
     @step
-    def  follow_link(self, index):
+    def follow_link(self, index):
         self.elements[index].element('a').click()
 
 
@@ -83,7 +83,7 @@ This object here is needed for faster access to the page object.
 Hence you don't need to import class and create and object for it
 you can import object directly.
 
-Probably if use use web.py module collecting all such objects in one place
+Probably if use use app.py module collecting all such objects in one place
 that surves and root entry point to your application model
 then you don't need this object defined here. Then you can simple remove it.
 """

@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  selenoid:
+    image: "aerokube/selenoid:1.10.0"
+    network_mode: bridge
+    restart: always
+    ports:  # if 4444 is already used on your host machine
+      # then chage it to something else, like 
+      # - "4447:4444"
+      - "4444:4444"  
+    volumes:
+      - "$PWD/etc/selenoid:/etc/selenoid/"  
+        # assumed <current-dir> contains etc/selenoid/browsers.json
+        # where <current-dir> is the directory 
+        # from where you run > docker-compose -f /etc/selenoid/compose.yaml -d up
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "4"]
+
+  selenoid-ui:
+    image: "aerokube/selenoid-ui:1.10.0"
+    network_mode: bridge
+    restart: always
+    depends_on:
+      - selenoid
+    links:  # todo: refactor because links are deprecated
+      - selenoid
+    ports:  # if 8090 is already used on your host machine
+    # then chage it to something else, like 
+    # - "8090:8080"
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]

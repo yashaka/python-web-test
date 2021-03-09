@@ -137,18 +137,18 @@ class StepContext:
                             inspect.getfullargspec(fn)
                             .args[0] in ['cls', 'self'])
 
-                module_name = func.__module__.split('.')[-1] \
-                    if not is_method(func) \
+                maybe_module_name = \
+                    func.__module__.split('.')[-1] if not is_method(func) \
                     else None
 
                 instance = args[0] if is_method(func) else None
                 instance_desc = str(instance)
-                instance_name = \
-                    instance_desc if not 'at 0x' in instance_desc \
+                maybe_instance_name = \
+                    instance_desc if 'at 0x' not in instance_desc \
                     else None
                 class_name = instance and instance.__class__.__name__
 
-                context_name = module_name or instance_name or class_name
+                context_name = maybe_module_name or maybe_instance_name or class_name
 
                 if not context_name:
                     return ''

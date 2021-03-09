@@ -65,6 +65,3 @@ class Google:
           (it's always there)
         """
         self.results.element_by(have.text(text)).element('a').click()
-
-
-google: Google = Google()

@@ -67,22 +67,5 @@ def should_have_results_amount_at_least(number):
 
 @step
 def follow_result_link(text):
-    """
-    Here we could return "next page object",
-    following so called Fluent PageObject pattern
-    but usually it might lead to confusion in such cases.
-    For example, what if we fail to follow the link
-    and this is "as expected", e.g. according to our
-    "negative" test case conditions.
-    Then it's logically to expect "same pageobject" not "next one"
-    Now we have two potential state as a result of this method execution.
-    And it's not clear what to return;)
-    So better to return "void"/None in such cases.
-    Usually Fluent PageObject makes sense only in cases
-    with only 1 possible result state, for example:
-    - returning self (we for sure stay on the same page)
-    - returning "sub-page-object" i.e. object of component on the page
-      (it's always there)
-    """
     results.element_by(have.text(text)).element('a').click()
     browser.switch_to_next_tab()

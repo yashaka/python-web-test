@@ -60,6 +60,12 @@ Or with allure reports generated::
 
     pytest --alluredir=reports tests/
 
+Feel free to use your editor of choice.
+
+* *If you use PyCharm, we recommend 2020.2.5 version*,
+
+  * as on 2020 February the Quick Fix and Autocomplete was broken in some valuable cases in all newer versions, including EAP both for Community and Professional editions.
+
 Details
 -------
 

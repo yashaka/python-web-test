@@ -16,7 +16,7 @@ class ReportedWait(SeleneWait[E]):
             derepresent_params=True,
             translations=(
                     ('browser.element', 'element'),
-                    ('browser.all', 'elements'),
+                    ('browser.all', 'all'),
                     ("'css selector', ", ""),
                     (r"'\ue007'", "Enter"),
                     ('((', '('),

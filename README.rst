@@ -73,7 +73,27 @@ Features supported:
 
 * allure report
 
-  * example of reported test case
+  * example of reported test case in straightforward/PageObejctLess style
+
+    * code::
+
+        def test_duckduckgo():
+            browser.open('https://duckduckgo.com/')
+
+            browser.element('[name=q]')\
+                .should(be.blank)\
+                .type('yashaka selene python').press_enter()
+            browser.all('.result__body') \
+                .should(have.size_greater_than(5)) \
+                .first.should(have.text('User-oriented Web UI browser tests'))
+
+            browser.all('.result__body').first.element('a').click()
+            browser.should(have.title_containing('yashaka/selene'))
+
+    * reported test body
+        |allure-report-straightforward-test-body|
+
+  * example of reported test case with PageObejcts
 
     * code::
 
@@ -88,14 +108,20 @@ Features supported:
             ecosia.results.follow_link(0)
             github.should_be_on('yashaka/selene')
 
-    * reported test body
-        |allure-report-test-body|
+    * reported
+
+      * test body
+        |allure-report-pageobjects-test-body|
+
+      * sub-steps
+        |allure-report-pageobjects-test-body-sub-steps|
 
   * reporting steps with automatic rendering of
 
     * underscores to spaces
     * inline params
     * context of step-function (object, class or module)
+    * actions on raw selene elements
 
   * last screenshot and page-source are attached to test body on failure
 
@@ -151,4 +177,6 @@ This template is yet in progress. **Todos** are:
   - jenkinsfile
   - multi-browser support with selenoid
 
-.. |allure-report-test-body| image:: ./docs/resources/allure-report-test-body.png
+.. |allure-report-pageobjects-test-body| image:: ./docs/resources/allure-report-pageobjects-test-body.png
+.. |allure-report-pageobjects-test-body-sub-steps| image:: ./docs/resources/allure-report-pageobjects-test-body-sub-steps.png
+.. |allure-report-straightforward-test-body| image:: ./docs/resources/allure-report-straightforward-test-body.png

@@ -21,16 +21,55 @@
 # SOFTWARE.
 from __future__ import annotations
 
+from typing import List
+
 
 class Option:
+    """
+    Usage
+    =====
+    # somewhere in conftest.py
+    class Config:
+
+        def __init__(self, request):
+            self.request = request
+
+        # just an example
+        # @Option.default('http://todomvc4tasj.herokuapp.com/')
+        # def base_url(self):
+        #     pass
+
+        @Option.default(6.0)
+        def timeout(self):
+            pass
+
+        @Option.default(True)
+        def save_page_source_on_failure(self):
+            pass
+
+        @Option.default("yashaka")
+        def author(self):
+            pass
+
+    """
+
+    @staticmethod
+    def s_from(cls) -> List[Option]:
+        return [Option.from_(field) for field in cls.__dict__.values()
+                if Option.in_(field)]
+
+    @staticmethod
+    def from_(prop) -> Option:
+        return prop.fget.option
 
     @staticmethod
     def in_(field) -> bool:
         return hasattr(field, 'fget') and hasattr(field.fget, 'option')
 
     @staticmethod
-    def from_(prop) -> Option:
-        return prop.fget.option
+    def register_all(from_cls, in_parser):                                      # todo: consider moving out from Option
+        for option in Option.s_from(from_cls):
+            option.register(in_parser)
 
     @staticmethod
     def default(value, **attributes):

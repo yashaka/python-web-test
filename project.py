@@ -21,10 +21,13 @@
 # SOFTWARE.
 from typing import Optional
 
-from web_test.helpers.pytest.settings import Option
+from web_test.helpers.pytest.project.settings import Option
 
 
 class Config:
+
+    def __init__(self, request):
+        self.request = request
 
     # just an example
     # @Option.default('http://todomvc4tasj.herokuapp.com/')
@@ -42,21 +45,6 @@ class Config:
     @Option.default("yashaka")
     def author(self):
         pass
-
-    def __init__(self, request):
-        self.request = request
-
-    # --- helpers --- #
-
-    @classmethod
-    def options(cls):
-        return [Option.from_(field) for field in cls.__dict__.values()
-                if Option.in_(field)]
-
-    @classmethod
-    def register(cls, parser):
-        for option in cls.options():
-            option.register(parser)
 
 
 config: Optional[Config] = None  # to be set by pytest fixtures

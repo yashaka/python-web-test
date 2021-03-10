@@ -7,6 +7,7 @@ from selene.support.shared import browser, SharedConfig, SharedBrowser
 import project
 import web_test.helpers.allure.gherkin
 from web_test.helpers.allure import report
+from web_test.helpers.pytest.project.settings import Option
 from web_test.helpers.python import monkey
 from web_test.helpers.selene.wait import ReportedWait
 
@@ -27,7 +28,7 @@ def add_reporting_to_selene_steps():
 
 
 def pytest_addoption(parser):
-    project.Config.register(parser)
+    Option.register_all(from_cls=project.Config, in_parser=parser)
 
 
 @pytest.fixture

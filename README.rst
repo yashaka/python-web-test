@@ -132,8 +132,6 @@ This template is yet in progress. **Todos** are:
 - more default options examples, like headless mode for browser
 - allure reporting integrated
 
-  - log low level selene actions via corresponding selene hooks
-
 - test suites via pytest marks/tags
 
   - `allure integration <https://docs.qameta.io/allure/#_tags>`_

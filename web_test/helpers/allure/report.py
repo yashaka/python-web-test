@@ -1,10 +1,12 @@
 import collections
 import re
 import inspect
-from functools import wraps
+from functools import wraps, reduce
 
 from allure_commons import plugin_manager
 from allure_commons.utils import uuid4, represent
+
+from web_test.helpers import fp
 
 
 def _humanify(string_with_underscores, /):
@@ -195,7 +197,25 @@ class StepContext:
                     + (context() if self.display_context else '')
             )
 
-            with StepContext(name_to_display, params_dict):
+            translations = (
+                ('browser.element', 'element'),
+                ('browser.all', 'list of'),
+                ("'css selector', ", ""),
+                (r"'\ue007'", "Enter"),
+                ('((', '('),
+                ('))', ')'),
+                (': has ', ': have '),
+                (': have ', ': should have '),
+                (': is ', ': should be'),
+            )
+
+            translated_name = reduce(
+                lambda text, item: text.replace(item[0], item[1]),
+                translations,
+                name_to_display
+            )
+
+            with StepContext(translated_name, params_dict):
                 return func(*args, **kw)
 
             # todo: consider supporting the following original params rendering

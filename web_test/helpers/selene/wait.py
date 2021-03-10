@@ -14,6 +14,17 @@ class ReportedWait(SeleneWait[E]):
             display_context=False,
             params_separator=': ',
             derepresent_params=True,
+            translations=(
+                    ('browser.element', 'element'),
+                    ('browser.all', 'elements'),
+                    ("'css selector', ", ""),
+                    (r"'\ue007'", "Enter"),
+                    ('((', '('),
+                    ('))', ')'),
+                    (': has ', ': have '),
+                    (': have ', ': should have '),
+                    (': is ', ': should be'),
+            )
         )
         def _(locator, action) -> R:
             return original(fn)

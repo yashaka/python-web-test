@@ -63,6 +63,7 @@ def step(
         params_separator=', ',
         derepresent_params=False,
         display_context=True,
+        translations=(),
 ):                                                                              # todo: add prefixes like gherkin, controlled by setting;)
     if callable(title_or_callable):
         func = title_or_callable
@@ -75,6 +76,7 @@ def step(
             params_separator=params_separator,
             derepresent_params=derepresent_params,
             display_context=display_context,
+            translations=translations,
         )(func)
     else:
         return StepContext(
@@ -84,6 +86,7 @@ def step(
             params_separator=params_separator,
             derepresent_params=derepresent_params,
             display_context=display_context,
+            translations=translations,
         )
 
 
@@ -97,6 +100,10 @@ class StepContext:
             params_separator=', ',
             derepresent_params=False,
             display_context=True,
+            translations=(
+                    (':--(', ':--)'),
+                    (':--/', ':--D'),
+            ),
     ):
         self.maybe_title = title
         self.params = params
@@ -105,6 +112,7 @@ class StepContext:
         self.params_separator = params_separator
         self.derepresent_params = derepresent_params
         self.display_context = display_context
+        self.translations = translations
 
     def __enter__(self):
         plugin_manager.hook.start_step(
@@ -197,23 +205,13 @@ class StepContext:
                     + (context() if self.display_context else '')
             )
 
-            translations = (
-                ('browser.element', 'element'),
-                ('browser.all', 'list of'),
-                ("'css selector', ", ""),
-                (r"'\ue007'", "Enter"),
-                ('((', '('),
-                ('))', ')'),
-                (': has ', ': have '),
-                (': have ', ': should have '),
-                (': is ', ': should be'),
-            )
+
 
             translated_name = reduce(
                 lambda text, item: text.replace(item[0], item[1]),
-                translations,
+                self.translations,
                 name_to_display
-            )
+            ) if self.translations else name_to_display
 
             with StepContext(translated_name, params_dict):
                 return func(*args, **kw)

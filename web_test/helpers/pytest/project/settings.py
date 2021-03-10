@@ -51,6 +51,19 @@ class Option:
         def author(self):
             pass
 
+
+    def pytest_addoption(parser):
+        Option.register_all(from_cls=project.Config, in_parser=parser)
+
+    @pytest.fixture
+    def config(request):
+        return project.Config(request)
+
+    @pytest.fixture(scope='function', autouse=True)
+    def browser_management(config):
+        browser.config.timeout = config.timeout
+        # ...
+
     """
 
     @staticmethod

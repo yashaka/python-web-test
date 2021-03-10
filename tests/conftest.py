@@ -2,10 +2,28 @@ import pytest
 import allure
 from _pytest.nodes import Item
 from _pytest.runner import CallInfo
-from selene.support.shared import browser
+from selene.support.shared import browser, SharedConfig, SharedBrowser
 
 import project
 import web_test.helpers.allure.gherkin
+from web_test.helpers.allure import report
+from web_test.helpers.python import monkey
+from web_test.helpers.selene.wait import ReportedWait
+
+
+@pytest.fixture(scope='session', autouse=True)
+def add_reporting_to_selene_steps():
+
+    original_open = browser.open
+
+    @monkey.patch_method_in(SharedBrowser)
+    def open(self, relative_or_absolute_url: str):
+        return report.step(original_open)(relative_or_absolute_url)
+
+    @monkey.patch_method_in(SharedConfig)                                       # todo: consider patching Wait explicitly
+    def wait(self, entity):
+        hook = self._inject_screenshot_and_page_source_pre_hooks(self.hook_wait_failure)
+        return ReportedWait(entity, at_most=self.timeout, or_fail_with=hook)
 
 
 def pytest_addoption(parser):

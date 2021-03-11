@@ -66,17 +66,12 @@ def browser_management():
     browser.config.save_page_source_on_failure \
         = config.settings.save_page_source_on_failure
 
-    # todo: add your before setup here...
-
     yield
-
     """
     Here, after yield,
     goes all "tear down" code for each test case
     aka "after test function" hook
     """
-
-    # todo: add your after setup here...
 
     browser.quit()
 

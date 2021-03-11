@@ -4,7 +4,7 @@ from _pytest.nodes import Item
 from _pytest.runner import CallInfo
 from selene.support.shared import browser, SharedConfig, SharedBrowser
 
-import project
+import config
 import web_test.helpers.allure.gherkin
 from web_test.helpers.allure import report
 from web_test.helpers.pytest.project.settings import Option
@@ -27,19 +27,8 @@ def add_reporting_to_selene_steps():
         return ReportedWait(entity, at_most=self.timeout, or_fail_with=hook)
 
 
-def pytest_addoption(parser):
-    Option.register_all(from_cls=project.Config, in_parser=parser)
-
-
-@pytest.fixture
-def config(request):
-    if not project.config:
-        project.config = project.Config(request)
-    return project.config
-
-
 @pytest.fixture(scope='function', autouse=True)
-def browser_management(config):
+def browser_management():
     """
     Here, before yield,
     goes all "setup" code for each test case
@@ -73,9 +62,9 @@ def browser_management(config):
     #     return error
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
-    browser.config.timeout = config.timeout
+    browser.config.timeout = config.settings.timeout
     browser.config.save_page_source_on_failure \
-        = config.save_page_source_on_failure
+        = config.settings.save_page_source_on_failure
 
     # todo: add your before setup here...
 

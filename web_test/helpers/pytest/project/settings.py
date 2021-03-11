@@ -108,7 +108,7 @@ class Option:
         self.attributes = attributes
 
     def value(self, from_request):
-        return from_request.config.getoption(self.name)
+        return from_request.settings.getoption(self.name)
 
     def register(self, parser):
         parser.addoption(self.name, **self.attributes)

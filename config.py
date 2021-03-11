@@ -19,32 +19,24 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from typing import Optional
 
-from web_test.helpers.pytest.project.settings import Option
-
-
-class Config:
-
-    def __init__(self, request):
-        self.request = request
-
-    # just an example
-    # @Option.default('http://todomvc4tasj.herokuapp.com/')
-    # def base_url(self):
-    #     pass
-
-    @Option.default(6.0)
-    def timeout(self):
-        pass
-
-    @Option.default(True)
-    def save_page_source_on_failure(self):
-        pass
-
-    @Option.default("yashaka")
-    def author(self):
-        pass
+from web_test.helpers.settings import sourced
 
 
-config: Optional[Config] = None  # to be set by pytest fixtures
+class Settings(sourced.Settings):
+
+    @sourced.default(6.0)
+    def timeout(self): pass
+
+    @sourced.default(True)
+    def save_page_source_on_failure(self): pass
+
+    @sourced.default("yashaka")
+    def author(self): pass
+
+
+from web_test.helpers.settings import source
+settings = Settings(
+    source.from_json('config.json'),
+    source.from_env,
+)

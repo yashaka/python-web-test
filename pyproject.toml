@@ -7,9 +7,8 @@ authors = ["Iakiv Kramarenko <yashaka@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 selene = {version = "^2.0.0-alpha.30", allow-prereleases = true}
-
-
-[tool.poetry.dev-dependencies]
+python-dotenv = "^0.15.0"
+pydantic = "^1.8.1"
 pytest = "^5.2"
 pytest-xdist = "^1.31.0"
 allure-pytest = "^2.8.11"

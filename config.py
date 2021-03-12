@@ -19,8 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from typing import Literal
-
+from typing import Literal, Optional
 
 EnvContext = Literal['local', 'prod']
 """
@@ -45,6 +44,21 @@ class Settings(pydantic.BaseSettings):
     Some recommendations:
     - add type hints, even if the type can be inferred from the default value
       to store field ordering (just in case... see more on this in docs)
+
+    Things that could be here:
+    ==========================
+    parallelize: bool = True
+    parallelize_in_exact_subprocess_number: Optional[int] = None
+    '''
+    though it would be consistent and pretty readable to have all potential
+    project options at one place,
+    the more KISS way is just to keep things as they are in pytest
+    and use -n <int> OR -n auto when parallelization is needed
+
+    In future we can play with this and implement it though external plugin
+    (yet stored locally in this project)
+    '''
+
     """
 
     context: EnvContext = 'local'

@@ -8,7 +8,7 @@ import config
 import web_test.help.allure.gherkin
 from web_test.help.allure import report
 from web_test.help.python import monkey
-from web_test.help.selene.wait import ReportedWait
+from web_test.help.selene.report.wait import ReportedWait
 
 
 @pytest.fixture(scope='session', autouse=True)

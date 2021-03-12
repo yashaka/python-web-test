@@ -2,7 +2,7 @@ from typing import Callable
 
 from selene.core.wait import Wait as SeleneWait, E, R
 
-from web_test.helpers.allure.report import step
+from web_test.help.allure.report import step
 
 
 class ReportedWait(SeleneWait[E]):

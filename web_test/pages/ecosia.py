@@ -5,7 +5,7 @@ The previous line is needed to type hint classes that are defined later
 like Results class below
 """
 
-from web_test.helpers.allure.report import step
+from web_test.help.allure.report import step
 from selene import by, have
 from selene.support.shared import browser
 

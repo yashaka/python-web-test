@@ -17,6 +17,7 @@
 import pytest
 
 
+
 def test_bing():
     """
     Pending test example (Option 1)
@@ -31,7 +32,7 @@ def test_bing():
     pytest.skip('as pending')
 
 
-from web_test.helpers.pytest.skip import pending
+from web_test.help.pytest.skip import pending
 
 
 @pending                                                                        # todo: find a way to automatically skip empty tests, maybe use some pytest plugin
@@ -181,7 +182,7 @@ def test_pypi():
     browser.should(have.title_containing('selene · PyPI'))
 
 
-from web_test.helpers.allure.gherkin import when, given, then
+from web_test.help.allure.gherkin import when, given, then
 """
 for extra BDD-style decoration with extra comments to log in report
 """

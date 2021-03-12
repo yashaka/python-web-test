@@ -6,7 +6,7 @@ from functools import wraps, reduce
 from allure_commons import plugin_manager
 from allure_commons.utils import uuid4, represent
 
-from web_test.helpers import fp
+from web_test.help import fp
 
 
 def _humanify(string_with_underscores, /):

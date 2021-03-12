@@ -5,10 +5,10 @@ from _pytest.runner import CallInfo
 from selene.support.shared import browser, SharedConfig, SharedBrowser
 
 import config
-import web_test.helpers.allure.gherkin
-from web_test.helpers.allure import report
-from web_test.helpers.python import monkey
-from web_test.helpers.selene.wait import ReportedWait
+import web_test.help.allure.gherkin
+from web_test.help.allure import report
+from web_test.help.python import monkey
+from web_test.help.selene.wait import ReportedWait
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -65,6 +65,7 @@ def browser_management():
     browser.config.save_page_source_on_failure \
         = config.settings.save_page_source_on_failure
 
+
     yield
     """
     Here, after yield,
@@ -103,7 +104,7 @@ def pytest_runtest_makereport(item: Item, call: CallInfo):
     outcome = yield  # Run all other pytest_runtest_makereport non wrapped hooks
     result = outcome.get_result()
 
-    if web_test.helpers.allure.gherkin.when == 'call' and result.failed:
+    if web_test.help.allure.gherkin.when == 'call' and result.failed:
         last_screenshot = browser.config.last_screenshot
         if last_screenshot and not last_screenshot == prev_test_screenshot:
             allure.attach.file(source=last_screenshot,

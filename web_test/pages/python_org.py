@@ -1,6 +1,6 @@
 from selene import have
 from selene.support.shared import browser
-from web_test.helpers.allure.report import step
+from web_test.help.allure.report import step
 
 """
 The file is named with _org in the end just to make it more explicit –

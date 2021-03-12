@@ -1,4 +1,4 @@
-from web_test.helpers.allure import gherkin
+from web_test.help.allure import gherkin
 
 
 def arrange(description: str):

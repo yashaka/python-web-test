@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from web_test.helpers.allure.report import step
+from web_test.help.allure.report import step
 
 """
 The previous line is needed to type hint classes that are defined later

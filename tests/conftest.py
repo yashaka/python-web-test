@@ -72,7 +72,9 @@ def browser_management():
     aka "after test function" hook
     """
 
-    browser.quit()
+    browser.config.hold_browser_open = config.settings.hold_browser_open
+    if not config.settings.hold_browser_open:
+        browser.quit()
 
 
 prev_test_screenshot = None

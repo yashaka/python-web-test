@@ -76,6 +76,7 @@ class Settings(pydantic.BaseSettings):
     """
 
     timeout: float = 6.0
+    hold_browser_open: bool = False
     save_page_source_on_failure: bool = True
     author: str = 'yashaka'
     # base_url: str = 'http://'

@@ -65,6 +65,10 @@ def browser_management():
     browser.config.save_page_source_on_failure \
         = config.settings.save_page_source_on_failure
 
+    from web_test import help
+    browser.config.driver = help.webdriver_manager.set_up.driver(
+        config.settings.browser_name
+    )
 
     yield
     """

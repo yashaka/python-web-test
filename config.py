@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from typing import Literal, Optional
+from typing import Literal, Optional, overload
 
 EnvContext = Literal['local', 'prod']
 """
@@ -32,6 +32,7 @@ It defines valid env contexts for better IDE support when dealing with them.
 
 
 import pydantic
+from web_test.help.webdriver_manager import supported
 
 
 class Settings(pydantic.BaseSettings):
@@ -76,13 +77,14 @@ class Settings(pydantic.BaseSettings):
     """
 
     timeout: float = 6.0
+    browser_name: supported.BrowserName = 'chrome'
     hold_browser_open: bool = False
     save_page_source_on_failure: bool = True
     author: str = 'yashaka'
     # base_url: str = 'http://'
 
     @classmethod
-    def in_context(cls, env: EnvContext = None):
+    def in_context(cls, env: Optional[EnvContext] = None) -> 'Settings':
         """
         factory method to init Settings with values from corresponding .env file
         """

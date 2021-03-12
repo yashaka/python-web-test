@@ -157,31 +157,8 @@ Resources and useful links
 TODO list
 ---------
 
-This template is yet in progress. **Todos** are:
+This template is yet in progress. See [opened issues](https://github.com/yashaka/python-web-test/issues/) for all todos.
 
-- add support for parsing command line args
-- read options from env files
-- more default options examples, like headless mode for browser
-- allure reporting integrated
-
-- test suites via pytest marks/tags
-
-  - `allure integration <https://docs.qameta.io/allure/#_tags>`_
-
-- rerun failures
-
-  - `pytest+allure retries <https://docs.qameta.io/allure/#_retries>`_
-
-- document allure's history vs retries usage
-
-- desired
-
-  - headless mode
-  - optional screenshots on passed test too
-  - optional screenshots on each step
-  - widgets example
-  - jenkinsfile
-  - multi-browser support with selenoid
 
 .. |allure-report-pageobjects-test-body| image:: ./docs/resources/allure-report-pageobjects-test-body.png
 .. |allure-report-pageobjects-test-body-sub-steps| image:: ./docs/resources/allure-report-pageobjects-test-body-sub-steps.png

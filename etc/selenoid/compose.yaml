@@ -2,11 +2,11 @@ version: '3'
 
 services:
   selenoid:
-    image: "aerokube/selenoid:1.10.0"
+    image: "aerokube/selenoid:1.10.1"
     network_mode: bridge
     restart: always
     ports:  # if 4444 is already used on your host machine
-      # then chage it to something else, like 
+      # then change it to something else, like
       # - "4447:4444"
       - "4444:4444"  
     volumes:
@@ -18,7 +18,7 @@ services:
     command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "4"]
 
   selenoid-ui:
-    image: "aerokube/selenoid-ui:1.10.0"
+    image: "aerokube/selenoid-ui:1.10.3"
     network_mode: bridge
     restart: always
     depends_on:

@@ -62,6 +62,15 @@ Or with `allure <https://docs.qameta.io/allure/#_installing_a_commandline>`_ rep
 
     pytest --alluredir=reports tests/
 
+Some predefined shell scripts to run are available at the `./run` folder. Make them runnable by::
+
+    chmod -R u+x run
+
+Then use them in your unix terminal like::
+
+    ./run/start_up_selenoid_with_ui.sh
+
+
 Feel free to use your editor of choice.
 
 * *If you use PyCharm, we recommend 2020.2.5 version*,

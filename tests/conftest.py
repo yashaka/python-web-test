@@ -64,14 +64,12 @@ def browser_management():
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
     import config
+    browser.config.base_url = config.settings.base_url
     browser.config.timeout = config.settings.timeout
     browser.config.save_page_source_on_failure \
         = config.settings.save_page_source_on_failure
 
-    browser.config.driver = web_test.help.webdriver_manager.set_up.driver(
-        config.settings.browser_name,
-        _driver_options_from(config.settings),
-    )
+    browser.config.driver = _driver_from(config.settings)
 
     yield
     """
@@ -83,6 +81,37 @@ def browser_management():
     browser.config.hold_browser_open = config.settings.hold_browser_open
     if not config.settings.hold_browser_open:
         browser.quit()
+
+
+from web_test.help.selenium.typing import WebDriver
+
+
+def _driver_from(settings: config.Settings) -> WebDriver:
+    driver_options = _driver_options_from(settings)
+
+    from selenium import webdriver
+    driver = web_test.help.webdriver_manager.set_up.local(
+        settings.browser_name,
+        driver_options,
+    ) if not settings.remote_url else webdriver.Remote(
+        command_executor=settings.remote_url,
+        options=driver_options,
+    )
+
+    if settings.maximize_window:
+        driver.maximize_window()
+    else:
+        driver.set_window_size(
+            width=settings.window_width,
+            height=settings.window_height,
+        )
+
+    # other driver configuration todos:
+    # file upload when remote
+    # - http://allselenium.info/file-upload-using-python-selenium-webdriver/
+    #   - https://sqa.stackexchange.com/questions/12851/how-can-i-work-with-file-uploads-during-a-webdriver-test
+
+    return driver
 
 
 from web_test.help.selenium.typing import WebDriverOptions
@@ -100,6 +129,17 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
     if settings.browser_name == supported.firefox:
         options = webdriver.FirefoxOptions()
         options.headless = config.settings.headless
+
+    if settings.remote_url:
+        options.set_capability('screenResolution',
+                               settings.remote_screenResolution)
+        options.set_capability('enableVNC', settings.remote_enableVNC)
+        options.set_capability('enableVideo', settings.remote_enableVideo)
+        options.set_capability('enableLog', settings.remote_enableLog)
+        if settings.remote_version:
+            options.set_capability('version', settings.remote_version)
+        if settings.remote_platform:
+            options.set_capability('platform', settings.remote_platform)
 
     return options
 

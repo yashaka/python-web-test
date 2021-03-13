@@ -48,8 +48,8 @@ installers: Dict[
 }
 
 
-def driver(
-        name: supported.BrowserName = 'chrome',
+def local(
+        name: supported.BrowserName = 'chrome',                                 # todo: consider change default to ... and then get it from options if passed
         options: WebDriverOptions = None
 ) -> WebDriver:
     return installers[name](options)

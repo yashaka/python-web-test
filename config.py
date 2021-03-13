@@ -76,13 +76,33 @@ class Settings(pydantic.BaseSettings):
         not mixing stuff for other team members ;)
     """
 
+    base_url: str = ''
     timeout: float = 6.0
-    browser_name: supported.BrowserName = 'chrome'
+    browser_name: supported.BrowserName = 'chrome'                              # todo: consider renaming to browserName for consistency with capability
     headless: bool = False
+    window_width: int = 1440
+    window_height: int = 900
+    maximize_window: bool = False
+    """
+    Should be False by default, 
+    because considered a bad practice 
+    to write tests for not predictable window size.
+    Maximized window will have different size on different machines,
+    that can make tests unstable.
+    """
+    remote_url: Optional[str] = None
+    remote_version: Optional[str] = None
+    remote_platform: Optional[str] = None
+    remote_enableVNC: bool = True
+    remote_screenResolution: str = '1920x1080x24'
+    remote_enableVideo: bool = False
+    remote_enableLog: bool = True
+    """
+    named not in snake_case for consistency with original capability name
+    """
     hold_browser_open: bool = False
     save_page_source_on_failure: bool = True
     author: str = 'yashaka'
-    # base_url: str = 'http://'
 
     @classmethod
     def in_context(cls, env: Optional[EnvContext] = None) -> 'Settings':

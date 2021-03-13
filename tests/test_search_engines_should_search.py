@@ -335,7 +335,7 @@ abstracting things out into more high level step-functions in simple python modu
 
 
 @mark.suite.smoke
-@mark.tag.unstable
+@mark.flaky(reruns=1)
 def test_searchencrypt():
     """
     PageModules/PageObjectLess
@@ -395,7 +395,8 @@ collecting everything into one place for easier and faster access
 """
 
 
-@mark.tag.unstable
+@mark.tag.in_progress
+@mark.flaky
 def test_searchencrypt_():
     """
     PageModules/PageObjectLess + ApplicationManager

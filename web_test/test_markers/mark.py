@@ -17,21 +17,50 @@ Additional Resources:
 import pytest
 import allure
 
-from web_test.help.pytest.skip import pending as _pending
 
-pending = _pending
-"""
-test is pending (to be automated later) and will be skipped during pytest run
-"""
+def pending(test_fn):                                                           # todo: consider impl as pytest fixture
+    def decorated(*args, **kwargs):
+        test_fn(*args, **kwargs)
+        pytest.skip('as pending')
+    return decorated
+
+
+import functools
+
+
+@functools.wraps(pytest.mark.flaky)
+def flaky(func=..., *, reruns: int = 0, reruns_delay: int = 0, condition=True):
+    """
+    alias to pytest.mark.flaky(reruns, reruns_delay)
+    from pytest-rerunfailures plugin
+    (no need to mention in pytest.ini)
+    """
+
+    @functools.wraps(pytest.mark.flaky)
+    def allurish_decorator(func_):
+        return pytest.mark.flaky(
+            reruns=reruns,
+            reruns_delay=reruns_delay,
+            condition=condition,
+        )(allure.tag('flaky')(func_))
+
+    return allurish_decorator(func) if callable(func) else allurish_decorator
 
 
 class suite:
     @staticmethod
+    @functools.wraps(pytest.mark.smoke)
     def smoke(func):
         return pytest.mark.smoke(allure.suite('smoke')(func))
 
 
 class tag:
     @staticmethod
-    def unstable(func):
-        return pytest.mark.unstable(allure.tag('unstable')(func))
+    @functools.wraps(pytest.mark.in_progress)
+    def in_progress(func):
+        return pytest.mark.in_progress(allure.tag('in_progress')(func))
+
+    @staticmethod
+    @functools.wraps(pytest.mark.fast)
+    def fast(func):
+        return pytest.mark.fast(allure.tag('fast')(func))

@@ -17,7 +17,6 @@
 import pytest
 
 
-
 def test_bing():
     """
     Pending test example (Option 1)
@@ -32,10 +31,10 @@ def test_bing():
     pytest.skip('as pending')
 
 
-from web_test.help.pytest.skip import pending
+from web_test.test_markers import mark
 
 
-@pending                                                                        # todo: find a way to automatically skip empty tests, maybe use some pytest plugin
+@mark.pending                                                                        # todo: find a way to automatically skip empty tests, maybe use some pytest plugin
 def test_yahoo():
     """
     Pending test example (Option 2)
@@ -57,6 +56,7 @@ from selene import have, be
 """
 
 
+@mark.suite.smoke
 def test_duckduckgo():
     """
     Straightforward/PageObjectLess style
@@ -334,6 +334,8 @@ abstracting things out into more high level step-functions in simple python modu
 """
 
 
+@mark.suite.smoke
+@mark.tag.unstable
 def test_searchencrypt():
     """
     PageModules/PageObjectLess
@@ -393,6 +395,7 @@ collecting everything into one place for easier and faster access
 """
 
 
+@mark.tag.unstable
 def test_searchencrypt_():
     """
     PageModules/PageObjectLess + ApplicationManager

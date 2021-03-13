@@ -4,7 +4,6 @@ from _pytest.nodes import Item
 from _pytest.runner import CallInfo
 from selene.support.shared import browser, SharedConfig, SharedBrowser
 
-import config
 import web_test.help.allure.gherkin
 from web_test.help.allure import report
 from web_test.help.python import monkey
@@ -24,6 +23,9 @@ def add_reporting_to_selene_steps():
     def wait(self, entity):
         hook = self._inject_screenshot_and_page_source_pre_hooks(self.hook_wait_failure)
         return ReportedWait(entity, at_most=self.timeout, or_fail_with=hook)
+
+
+import config
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -61,13 +63,14 @@ def browser_management():
     #     return error
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
+    import config
     browser.config.timeout = config.settings.timeout
     browser.config.save_page_source_on_failure \
         = config.settings.save_page_source_on_failure
 
-    from web_test import help
-    browser.config.driver = help.webdriver_manager.set_up.driver(
-        config.settings.browser_name
+    browser.config.driver = web_test.help.webdriver_manager.set_up.driver(
+        config.settings.browser_name,
+        _driver_options_from(config.settings),
     )
 
     yield
@@ -80,6 +83,25 @@ def browser_management():
     browser.config.hold_browser_open = config.settings.hold_browser_open
     if not config.settings.hold_browser_open:
         browser.quit()
+
+
+from web_test.help.selenium.typing import WebDriverOptions
+
+
+def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
+    options = None
+
+    from selenium import webdriver
+    from web_test.help.webdriver_manager import supported
+    if settings.browser_name == supported.chrome:
+        options = webdriver.ChromeOptions()
+        options.headless = config.settings.headless
+
+    if settings.browser_name == supported.firefox:
+        options = webdriver.FirefoxOptions()
+        options.headless = config.settings.headless
+
+    return options
 
 
 prev_test_screenshot = None

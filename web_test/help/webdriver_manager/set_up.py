@@ -1,4 +1,4 @@
-from typing import Dict, Callable, Literal, overload
+from typing import Dict, Callable, Literal, overload, Optional, Union
 
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -8,28 +8,48 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager, IEDriverManag
 from webdriver_manager.opera import OperaDriverManager
 from webdriver_manager.utils import ChromeType
 
+
+from web_test.help.selenium.typing import WebDriverOptions
 from . import supported
 
-
-installers: Dict[supported.BrowserName, Callable[[], WebDriver]] = {
+installers: Dict[
+    supported.BrowserName,
+    Callable[[Optional[WebDriverOptions]], WebDriver]
+] = {
     supported.chrome:
-        lambda: webdriver.Chrome(ChromeDriverManager().install()),
+        lambda opts: webdriver.Chrome(
+            ChromeDriverManager().install(),
+            options=opts,
+        ),
     supported.chromium:
-        lambda: webdriver.Chrome(
-            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+        lambda opts: webdriver.Chrome(
+            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),
+            options=opts,
         ),
     supported.firefox:
-        lambda: webdriver.Firefox(
-            executable_path=GeckoDriverManager().install()
+        lambda opts: webdriver.Firefox(
+            executable_path=GeckoDriverManager().install(),
+            options=opts,
         ),
     supported.ie:
-        lambda: webdriver.Ie(IEDriverManager().install()),
+        lambda opts: webdriver.Ie(
+            IEDriverManager().install(),
+            options=opts,
+        ),
     supported.edge:
-        lambda: webdriver.Edge(EdgeChromiumDriverManager().install()),
+        lambda ____: webdriver.Edge(
+            EdgeChromiumDriverManager().install(),
+        ),
     supported.opera:
-        lambda: webdriver.Opera(executable_path=OperaDriverManager().install()),
+        lambda opts: webdriver.Opera(
+            executable_path=OperaDriverManager().install(),
+            options=opts,
+        ),
 }
 
 
-def driver(name: supported.BrowserName = 'chrome') -> WebDriver:
-    return installers[name]()
+def driver(
+        name: supported.BrowserName = 'chrome',
+        options: WebDriverOptions = None
+) -> WebDriver:
+    return installers[name](options)

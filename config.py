@@ -78,6 +78,7 @@ class Settings(pydantic.BaseSettings):
 
     timeout: float = 6.0
     browser_name: supported.BrowserName = 'chrome'
+    headless: bool = False
     hold_browser_open: bool = False
     save_page_source_on_failure: bool = True
     author: str = 'yashaka'

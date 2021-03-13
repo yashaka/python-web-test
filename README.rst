@@ -6,11 +6,7 @@ Overview and general guidelines
 
 This is a template project. It's supposed to be cloned or downloaded and edited according to your needs.
 
-The project itself reflects an implementation of acceptance web ui tests for a "web", i.e. as "application under test" we consider here the "whole web", under "root pages" we mean "web sites", under "sub-pages" we mean "web site pages". To apply this template to your context, usually you would need to rename all "web" entries in names or some option values in config files (like ``pyproject.toml``) to "your_project_name" with the following exceptions:
-
-- you can rename ``web.py`` to ``app.py`` instead of ``your_project_name.py`` for conciseness
-- you can use dashes instead of underscore in the project root folder
-  - for example: ``your-project-name`` over ``your_project_name``
+The project itself reflects an implementation of acceptance web ui tests for a "web", i.e. as "application under test" we consider here the "whole web", under "root pages" we mean "web sites", under "sub-pages" we mean "web site pages". Take this into account when applying the template to your context;)
 
 Hence, download it, rename the project folder to something like ``my-product-test``, then rename the modules correspondingly (like ``web_test`` to ``my_product_test``, etc...), edit the "project" section in ``pyproject.toml`` to something like::
 
@@ -27,8 +23,6 @@ And you should be ready to go ;)
 You can also consider keeping the template examples for some time. Maybe just leave ``web_test`` package as it is, and add your own ``my_product_test`` module. Then duplicate the ``tests`` folder, edit the copy as you need, while keeping the original ``tests`` folder under another name, e.g. ``examples``;)
 
 Pay attention to a lot of comments and docstrings in code to understand what happens. You will find different styles of implementing page-objects. Probably you will need only one style in your case. So read all explanations and choose the one that fits your needs.
-
-If you are a total beginner and like "simplest" way, consider using the style used in ``test_searchencrypt()``. If you are a beginner but want your project to "shine" and avoid "weird questions" from some senior engineers, use the style used in ``test_google()`` (other styles can be added afterwards).
 
 
 Installation
@@ -53,34 +47,43 @@ So you can run your tests via::
 
     pytest tests/
 
-Or with `xdist <https://pypi.org/project/pytest-xdist/>`_ parallelisation::
-
-    pytest -n 4 tests/
-
-
-Or with `allure <https://docs.qameta.io/allure/#_installing_a_commandline>`_ reports generated::
-
-    pytest --alluredir=reports tests/
-
-Some predefined shell scripts to run are available at the `./run` folder. Make them runnable by::
+The `./run <https://github.com/yashaka/python-web-test/tree/master/run>`_ folder contains a bunch shell scripts as examples of different variations of running tests and other tasks, like setting selenoid up & running. To make them runnable do in your unix terminal inside ``$YOUR_PROJECT_FOLDER_PATH`` ::
 
     chmod -R u+x run
 
-Then use them in your unix terminal like::
 
-    ./run/start_up_selenoid_with_ui.sh
+Now you can do something like::
+
+    ./run/tests_and_reserve_report.sh
+
+or even passing additional args, for example to filter only tests marked as "smoke"::
+
+    ./run/tests_and_reserve_report.sh -m smoke
+
+Some scripts expects at least one argument, like in this example::
+
+    ./run/tests_marked_by.sh smoke
+
+Check them all, tune and remove not needed ones, according to your needs.
 
 
-Feel free to use your editor of choice.
-
-* *If you use PyCharm, we recommend 2020.2.5 version*,
-
-  * as on 2020 February the Quick Fix and Autocomplete was broken in some valuable cases in all newer versions, including EAP both for Community and Professional editions.
+So you are ready to go;)
+Feel free to use your editor of choice to surf the code base, and tune it correspondingly.
 
 Details
 -------
 
 Features supported:
+
+* parallel execution via pytest-xdist
+
+* closer integration of pytest markers and allure
+
+  * rerun tests via pytest-rerunfailures
+
+* project configuration management by pydantic
+
+  * local and remote webdriver management
 
 * allure report
 
@@ -140,16 +143,6 @@ Features supported:
 
         allure serve reports
 
-* parallel execution via xdist
-* PageObjects examples of different styles
-
-  * simple pageobjects (1 pageobject per page)
-  * more granular pageobjects (>1 pageobject per page)
-  * fluent pageobjects (pageobject step return object of next page or component on the page)
-  * page-modules (simple python module with functions instead of class with methods)
-  * one root entry point to all pageobjects (aka application manager)
-
-tbd
 
 More examples
 .............

@@ -159,7 +159,7 @@ Resources and useful links
 TODO list
 ---------
 
-This template is yet in progress. See [opened issues](https://github.com/yashaka/python-web-test/issues/) for all todos.
+This template is yet in progress. See `opened issues <https://github.com/yashaka/python-web-test/issues/>`_ for all todos.
 
 
 .. |allure-report-pageobjects-test-body| image:: ./docs/resources/allure-report-pageobjects-test-body.png

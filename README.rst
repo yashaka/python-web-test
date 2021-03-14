@@ -64,7 +64,22 @@ Some scripts expects at least one argument, like in this example::
 
     ./run/tests_marked_by.sh smoke
 
-Check them all, tune and remove not needed ones, according to your needs.
+Or this::
+
+    ./run/tests_remote_on.sh http://127.0.0.1:4444/wd/hub
+
+
+Some needs docker and docker-compose to be preinstalled, so you can pull all needed browser images::
+
+    ./run/pull_docker_images_for_selenoid_browsers.sh
+
+And get selenoid up and running::
+
+    ./run/start_up/selenoid_with_ui.sh
+
+You might want to check corresponding `etc/selenoid/compose.yaml <https://github.com/yashaka/python-web-test/blob/master/etc/selenoid/compose.yaml>`_ docker-dompose file and tune it to your needs.
+
+Check all scripts to see more examples of the framework usage, tune and remove not needed ones, according to your needs.
 
 
 So you are ready to go;)
@@ -151,7 +166,7 @@ Running a single "test case" with allure report generated::
 
     pytest --alluredir=reports tests/test_search_engines_should_search.py::test_google
 
-Resources and useful links
+More resources and useful links
 --------------------------
 
 - `Pytest basic patterns and examples <https://docs.pytest.org/en/latest/example/simple.html>`_

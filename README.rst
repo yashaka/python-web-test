@@ -154,7 +154,7 @@ Running a single "test case" with allure report generated::
 Resources and useful links
 --------------------------
 
-- `Pytest basic patterns and examples <https://docs.pytest.org/en/latest/example/simple.htm>`_
+- `Pytest basic patterns and examples <https://docs.pytest.org/en/latest/example/simple.html>`_
 
 TODO list
 ---------

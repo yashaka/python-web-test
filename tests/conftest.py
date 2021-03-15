@@ -102,13 +102,24 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
 
     from selenium import webdriver
     from web_test.help.webdriver_manager import supported
-    if settings.browser_name == supported.chrome:
+    if settings.browser_name in [supported.chrome, supported.chromium]:
         options = webdriver.ChromeOptions()
         options.headless = config.settings.headless
 
     if settings.browser_name == supported.firefox:
         options = webdriver.FirefoxOptions()
         options.headless = config.settings.headless
+
+    if settings.browser_name == supported.ie:
+        options = webdriver.IeOptions()
+
+    from web_test.help.selenium.typing import EdgeOptions
+    if settings.browser_name == supported.edge:
+        options = EdgeOptions()
+
+    from web_test.help.selenium.typing import OperaOptions
+    if settings.browser_name == supported.edge:
+        options = OperaOptions()
 
     if settings.remote_url:
         options.set_capability('screenResolution',

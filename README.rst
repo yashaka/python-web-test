@@ -159,13 +159,6 @@ Features supported:
         allure serve reports
 
 
-More examples
-.............
-
-Running a single "test case" with allure report generated::
-
-    pytest --alluredir=reports tests/test_search_engines_should_search.py::test_google
-
 More resources and useful links
 --------------------------
 

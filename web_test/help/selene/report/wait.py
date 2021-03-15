@@ -2,15 +2,15 @@ from typing import Callable
 
 from selene.core.wait import Wait as SeleneWait, E, R
 
-from web_test.help.allure.report import step
-
 
 class ReportedWait(SeleneWait[E]):
 
     def for_(self, fn: Callable[[E], R]) -> R:
         original = super().for_
 
-        @step(
+        from web_test import help
+
+        @help.allure.report.step(
             display_context=False,
             params_separator=': ',
             derepresent_params=True,

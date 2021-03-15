@@ -1,4 +1,4 @@
-from typing import Dict, Callable, Literal, overload, Optional, Union
+from typing import Dict, Callable, Optional
 
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver

@@ -4,7 +4,8 @@
     "versions": {
       "89.0": {
         "image": "selenoid/vnc_chrome:89.0",
-        "port": "4444"
+        "port": "4444",
+        "path": "/"
       }
     }
   },
@@ -13,7 +14,8 @@
     "versions": {
       "86.0": {
         "image": "selenoid/vnc_firefox:86.0",
-        "port": "4444"
+        "port": "4444",
+        "path": "/wd/hub"
       }
     }
   }

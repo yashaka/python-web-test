@@ -118,7 +118,7 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
         options = EdgeOptions()
 
     from web_test.help.selenium.typing import OperaOptions
-    if settings.browser_name == supported.edge:
+    if settings.browser_name == supported.opera:
         options = OperaOptions()
 
     if settings.remote_url:

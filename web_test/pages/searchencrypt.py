@@ -1,7 +1,7 @@
 from selene import by, have
 from selene.support.shared import browser
 
-from web_test.help.allure.report import step
+from web_test.assist.allure.report import step
 
 """
 This is a simplest possible implementation of pages model. 

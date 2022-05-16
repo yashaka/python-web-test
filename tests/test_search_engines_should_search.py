@@ -85,11 +85,13 @@ def test_duckduckgo():
     browser.element('[name=q]')\
         .should(be.blank)\
         .type('yashaka selene python').press_enter()
-    browser.all('.result__body') \
+    browser.all('[data-testid=result]') \
         .should(have.size_greater_than(5)) \
         .first.should(have.text('User-oriented Web UI browser tests'))
 
-    browser.all('.result__body').first.element('a').click()
+    browser.all(
+        '[data-testid=result]'
+    ).first.element('[data-testid=result-title-a]').click()
     browser.should(have.title_containing('yashaka/selene'))
 
 
@@ -125,11 +127,11 @@ def test_duckduckgo_():
     browser.open('https://duckduckgo.com/')
 
     s('[name=q]').type('yashaka selene python').press_enter()
-    ss('.result__body') \
+    ss('[data-testid=result]') \
         .should(have.size_greater_than(5)) \
         .first.should(have.text('User-oriented Web UI browser tests'))
 
-    ss('.result__body').first.s('a').click()
+    ss('[data-testid=result]').first.s('[data-testid=result-title-a]').click()
     browser.should(have.title_containing('yashaka/selene'))
 
 
@@ -182,7 +184,7 @@ def test_pypi():
     browser.should(have.title_containing('selene · PyPI'))
 
 
-from web_test.help.allure.gherkin import when, given, then
+from web_test.assist.allure.gherkin import when, given, then
 """
 for extra BDD-style decoration with extra comments to log in report
 """
@@ -273,13 +275,13 @@ def test_duckduckgo__():
     @then('results should be')
     def step(more_than=5,
              first_result_text='User-oriented Web UI browser tests'):
-        ss('.result__body') \
+        ss('[data-testid=result]') \
             .should(have.size_greater_than(more_than)) \
             .first.should(have.text(first_result_text))
 
     @when('follows first link')
     def step():
-        ss('.result__body').first.element('a').click()
+        ss('[data-testid=result]').first.element('[data-testid=result-title-a]').click()
 
     @then('should be on github')
     def step(repo='yashaka/selene'):
@@ -315,13 +317,13 @@ def test_duckduckgo___():
         more_than=5,
         first_result_text='User-oriented Web UI browser tests'
     ):
-        browser.all('.result__body')\
+        browser.all('[data-testid=result]')\
             .should(have.size_greater_than(more_than))\
             .first.should(have.text(first_result_text))
 
     @when()
     def follows_first_link():
-        browser.all('.result__body').first.element('a').click()
+        browser.all('[data-testid=result]').first.element('[data-testid=result-title-a]').click()
 
     @then()
     def should_be_on_github(repo='yashaka/selene'):

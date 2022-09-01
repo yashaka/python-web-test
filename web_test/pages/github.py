@@ -1,7 +1,7 @@
 from selene import have
 from selene.support.shared import browser
 
-from web_test.help.allure.report import step
+from web_test.assist.allure.report import step
 
 
 class Github:

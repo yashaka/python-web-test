@@ -9,12 +9,12 @@ def add_reporting_to_selene_steps():
 
     original_open = browser.open
 
-    from web_test.help.python import monkey
+    from web_test.assist.python import monkey
     from selene.support.shared import SharedConfig, SharedBrowser
 
     @monkey.patch_method_in(SharedBrowser)
     def open(self, relative_or_absolute_url: str):
-        from web_test.help.allure import report
+        from web_test.assist.allure import report
 
         return report.step(original_open)(relative_or_absolute_url)
 
@@ -24,7 +24,7 @@ def add_reporting_to_selene_steps():
             self.hook_wait_failure
         )
 
-        from web_test.help.selene.report.wait import ReportedWait
+        from web_test.assist.selene.report.wait import ReportedWait
         return ReportedWait(
             entity,
             at_most=self.timeout,
@@ -66,14 +66,14 @@ def browser_management():
         browser.quit()
 
 
-from web_test.help.selenium.typing import WebDriver
+from web_test.assist.selenium.typing import WebDriver
 
 
 def _driver_from(settings: config.Settings) -> WebDriver:
     driver_options = _driver_options_from(settings)
 
     from selenium import webdriver
-    driver = web_test.help.webdriver_manager.set_up.local(
+    driver = web_test.assist.webdriver_manager.set_up.local(
         settings.browser_name,
         driver_options,
     ) if not settings.remote_url else webdriver.Remote(
@@ -97,14 +97,14 @@ def _driver_from(settings: config.Settings) -> WebDriver:
     return driver
 
 
-from web_test.help.selenium.typing import WebDriverOptions
+from web_test.assist.selenium.typing import WebDriverOptions
 
 
 def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
     options = None
 
     from selenium import webdriver
-    from web_test.help.webdriver_manager import supported
+    from web_test.assist.webdriver_manager import supported
     if settings.browser_name in [supported.chrome, supported.chromium]:
         options = webdriver.ChromeOptions()
         options.headless = settings.headless
@@ -116,11 +116,11 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
     if settings.browser_name == supported.ie:
         options = webdriver.IeOptions()
 
-    from web_test.help.selenium.typing import EdgeOptions
+    from web_test.assist.selenium.typing import EdgeOptions
     if settings.browser_name == supported.edge:
         options = EdgeOptions()
 
-    from web_test.help.selenium.typing import OperaOptions
+    from web_test.assist.selenium.typing import OperaOptions
     if settings.browser_name == supported.edge:
         options = OperaOptions()
 

@@ -6,7 +6,7 @@ class Settings:                                                                 
     USAGE
     =====
 
-    from web_test.help.settings import sourced
+    from web_test.assist.settings import sourced
 
     class Settings(sourced.Settings):
 

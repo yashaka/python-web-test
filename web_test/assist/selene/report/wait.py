@@ -8,9 +8,9 @@ class ReportedWait(SeleneWait[E]):
     def for_(self, fn: Callable[[E], R]) -> R:
         original = super().for_
 
-        from web_test import help
+        from web_test import assist
 
-        @help.allure.report.step(
+        @assist.allure.report.step(
             display_context=False,
             params_separator=': ',
             derepresent_params=True,

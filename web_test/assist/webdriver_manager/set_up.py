@@ -9,7 +9,7 @@ from webdriver_manager.opera import OperaDriverManager
 from webdriver_manager.utils import ChromeType
 
 
-from web_test.help.selenium.typing import WebDriverOptions
+from web_test.assist.selenium.typing import WebDriverOptions
 from . import supported
 
 installers: Dict[

@@ -3,4 +3,5 @@ from . import (
     python,
     selene,
     webdriver_manager,
+    project,
 )

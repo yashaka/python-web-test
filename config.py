@@ -1,5 +1,7 @@
 from typing import Literal, Optional
 
+from web_test import assist
+
 EnvContext = Literal['local', 'prod']
 """
 Extend it in accordance with your conditions.
@@ -11,7 +13,7 @@ It defines valid env contexts for better IDE support when dealing with them.
 
 
 import pydantic
-from web_test.help.webdriver_manager import supported
+from web_test.assist.webdriver_manager import supported
 
 
 class Settings(pydantic.BaseSettings):
@@ -89,7 +91,9 @@ class Settings(pydantic.BaseSettings):
         factory method to init Settings with values from corresponding .env file
         """
         asked_or_current = env or cls().context
-        return cls(_env_file=f'config.{asked_or_current}.env')
+        return cls(_env_file=assist.project.abs_path_from_project(
+            f'config.{asked_or_current}.env'
+        ))
 
 
 settings = Settings.in_context()

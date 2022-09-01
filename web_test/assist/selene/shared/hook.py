@@ -16,7 +16,7 @@ def attach_snapshots_on_failure(error: TimeoutException) -> Exception:
 
         import web_test
         browser.config.hook_wait_failure = \
-            web_test.help.selene.shared.hook.attach_snapshots_on_failure
+            web_test.assist.selene.shared.hook.attach_snapshots_on_failure
 
     otherwise, you can skip it;)
     """

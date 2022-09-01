@@ -50,6 +50,10 @@ def browser_management():
         = config.settings.save_page_source_on_failure
 
     browser.config.driver = _driver_from(config.settings)
+    browser.config.hold_browser_open = config.settings.hold_browser_open
+    """
+    TODO: do we even need it? below we quit it manually....
+    """
 
     yield
     """
@@ -58,7 +62,6 @@ def browser_management():
     aka "after test function" hook
     """
 
-    browser.config.hold_browser_open = config.settings.hold_browser_open
     if not config.settings.hold_browser_open:
         browser.quit()
 
@@ -104,11 +107,11 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
     from web_test.help.webdriver_manager import supported
     if settings.browser_name in [supported.chrome, supported.chromium]:
         options = webdriver.ChromeOptions()
-        options.headless = config.settings.headless
+        options.headless = settings.headless
 
     if settings.browser_name == supported.firefox:
         options = webdriver.FirefoxOptions()
-        options.headless = config.settings.headless
+        options.headless = settings.headless
 
     if settings.browser_name == supported.ie:
         options = webdriver.IeOptions()

@@ -16,16 +16,12 @@ Additional Resources:
 
 import pytest
 import allure
-
-
-def pending(test_fn):                                                           # todo: consider impl as pytest fixture
-    def decorated(*args, **kwargs):
-        test_fn(*args, **kwargs)
-        pytest.skip('as pending')
-    return decorated
-
-
 import functools
+
+
+@functools.wraps(pytest.mark.pending)
+def smoke(func):
+    return pytest.mark.pending(pytest.skip('as pending')(func))
 
 
 @functools.wraps(pytest.mark.flaky)

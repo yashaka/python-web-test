@@ -350,7 +350,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
 name = "selene"
-version = "2.0.0b6"
+version = "2.0.0b7"
 description = "User-oriented browser tests in Python (Selenide port)"
 category = "main"
 optional = false
@@ -706,8 +706,8 @@ requests = [
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
 selene = [
-    {file = "selene-2.0.0b6-py3-none-any.whl", hash = "sha256:ea59dbc0c999516b3b3aeca956a2ec9ce374c58bf8ede9ee94f6ac39a977b284"},
-    {file = "selene-2.0.0b6.tar.gz", hash = "sha256:e1699dc290ae00e5b1a3f99cb34d2108fa8c9ee7764143be9c88096004665c00"},
+    {file = "selene-2.0.0b7-py3-none-any.whl", hash = "sha256:359d60c4485caf06d150ab440f1b2905c75e243b64aa36c61a7c440b46a9d860"},
+    {file = "selene-2.0.0b7.tar.gz", hash = "sha256:9b7ea826abb62250ab07101a3ddbce58b370b896c48070a6253e37c9baf87339"},
 ]
 selenium = [
     {file = "selenium-4.2.0-py3-none-any.whl", hash = "sha256:ba5b2633f43cf6fe9d308fa4a6996e00a101ab9cb1aad6fd91ae1f3dbe57f56f"},

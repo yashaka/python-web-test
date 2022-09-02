@@ -1,23 +1,23 @@
 [[package]]
 name = "allure-pytest"
-version = "2.8.34"
+version = "2.10.0"
 description = "Allure pytest integration"
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-allure-python-commons = "2.8.34"
+allure-python-commons = "2.10.0"
 pytest = ">=4.5.0"
 six = ">=1.9.0"
 
 [[package]]
 name = "allure-python-commons"
-version = "2.8.34"
+version = "2.10.0"
 description = "Common module for integrate allure with python-based frameworks"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.5"
 
 [package.dependencies]
 attrs = ">=16.0.0"
@@ -96,29 +96,6 @@ description = "Cross-platform colored terminal text."
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[[package]]
-name = "configparser"
-version = "5.0.1"
-description = "Updated configparser from Python 3.8 for Python 2.6+."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.extras]
-docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "jaraco.test (>=3.2.0)", "pytest-black (>=0.3.7)", "pytest-mypy"]
-
-[[package]]
-name = "crayons"
-version = "0.4.0"
-description = "TextUI colors for Python."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-colorama = "*"
 
 [[package]]
 name = "cryptography"
@@ -273,6 +250,14 @@ optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
+name = "pysocks"
+version = "1.7.1"
+description = "A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
 name = "pytest"
 version = "5.4.3"
 description = "pytest: simple powerful testing with Python"
@@ -365,7 +350,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
 name = "selene"
-version = "2.0.0b2"
+version = "2.0.0b6"
 description = "User-oriented browser tests in Python (Selenide port)"
 category = "main"
 optional = false
@@ -373,12 +358,12 @@ python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 future = "*"
-selenium = "4.1.0"
-webdriver-manager = "3.5.3"
+selenium = "4.2.0"
+webdriver-manager = "3.7.0"
 
 [[package]]
 name = "selenium"
-version = "4.1.0"
+version = "4.2.0"
 description = ""
 category = "main"
 optional = false
@@ -387,7 +372,7 @@ python-versions = "~=3.7"
 [package.dependencies]
 trio = ">=0.17,<1.0"
 trio-websocket = ">=0.9,<1.0"
-urllib3 = {version = ">=1.26,<2.0", extras = ["secure"]}
+urllib3 = {version = ">=1.26,<2.0", extras = ["secure", "socks"]}
 
 [[package]]
 name = "six"
@@ -464,6 +449,7 @@ certifi = {version = "*", optional = true, markers = "extra == \"secure\""}
 cryptography = {version = ">=1.3.4", optional = true, markers = "extra == \"secure\""}
 idna = {version = ">=2.0.0", optional = true, markers = "extra == \"secure\""}
 pyOpenSSL = {version = ">=0.14", optional = true, markers = "extra == \"secure\""}
+PySocks = {version = ">=1.5.6,<1.5.7 || >1.5.7,<2.0", optional = true, markers = "extra == \"socks\""}
 
 [package.extras]
 brotli = ["brotlipy (>=0.6.0)"]
@@ -480,15 +466,14 @@ python-versions = "*"
 
 [[package]]
 name = "webdriver-manager"
-version = "3.5.3"
+version = "3.7.0"
 description = "Library provides the way to automatically manage drivers for different browsers"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-configparser = "*"
-crayons = "*"
+python-dotenv = "*"
 requests = "*"
 
 [[package]]
@@ -509,12 +494,12 @@ content-hash = "1894b65c24104921320f2ad92e911cf450ed08350a28c99f493b173fc7023869
 
 [metadata.files]
 allure-pytest = [
-    {file = "allure-pytest-2.8.34.tar.gz", hash = "sha256:56eba100f87c39b7b2539497e99820f7a9cbfbb4f45647767b0f3d651dfea99b"},
-    {file = "allure_pytest-2.8.34-py3-none-any.whl", hash = "sha256:cbf609f30ee7aca25facf5a8dfcbf8bcebbb115f939156db6cf61ec5476aff17"},
+    {file = "allure-pytest-2.10.0.tar.gz", hash = "sha256:3b2ab67629f4cbd8617abd817d2b22292c6eb7efd5584f992d1af8143aea6ee7"},
+    {file = "allure_pytest-2.10.0-py3-none-any.whl", hash = "sha256:08274096594758447db54c3b2c382526ee04f1fe12119cdaee92d2d93c84b530"},
 ]
 allure-python-commons = [
-    {file = "allure-python-commons-2.8.34.tar.gz", hash = "sha256:fe31df5d055bc247ade2ba8ad47a6d10d542c6f1720682ea9e21bf22195d4057"},
-    {file = "allure_python_commons-2.8.34-py3-none-any.whl", hash = "sha256:8bf6fd103c68b15e5811253304be329dc82482a058131aaae26aa4c32e7dbf5a"},
+    {file = "allure-python-commons-2.10.0.tar.gz", hash = "sha256:d4d31344b0f0037a4a11e16b91b28cf0eeb23ffa0e50c27fcfc6aabe72212d3c"},
+    {file = "allure_python_commons-2.10.0-py3-none-any.whl", hash = "sha256:2a717e8ca8d296bf89cd57f38fc3c21893bd7ea8cd02a6ae5420e6d1a6eda5d0"},
 ]
 apipkg = [
     {file = "apipkg-1.5-py2.py3-none-any.whl", hash = "sha256:58587dd4dc3daefad0487f6d9ae32b4542b185e1c36db6993290e7c41ca2b47c"},
@@ -595,14 +580,6 @@ chardet = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
-]
-configparser = [
-    {file = "configparser-5.0.1-py3-none-any.whl", hash = "sha256:08e8a59ef1817ac4ed810bb8e17d049566dd6e024e7566f6285c756db2bb4ff8"},
-    {file = "configparser-5.0.1.tar.gz", hash = "sha256:005c3b102c96f4be9b8f40dafbd4997db003d07d1caa19f37808be8031475f2a"},
-]
-crayons = [
-    {file = "crayons-0.4.0-py2.py3-none-any.whl", hash = "sha256:e73ad105c78935d71fe454dd4b85c5c437ba199294e7ffd3341842bc683654b1"},
-    {file = "crayons-0.4.0.tar.gz", hash = "sha256:bd33b7547800f2cfbd26b38431f9e64b487a7de74a947b0fafc89b45a601813f"},
 ]
 cryptography = [
     {file = "cryptography-37.0.2-cp36-abi3-macosx_10_10_universal2.whl", hash = "sha256:ef15c2df7656763b4ff20a9bc4381d8352e6640cfeb95c2972c38ef508e75181"},
@@ -699,6 +676,11 @@ pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
     {file = "pyparsing-2.4.7.tar.gz", hash = "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1"},
 ]
+pysocks = [
+    {file = "PySocks-1.7.1-py27-none-any.whl", hash = "sha256:08e69f092cc6dbe92a0fdd16eeb9b9ffbc13cadfe5ca4c7bd92ffb078b293299"},
+    {file = "PySocks-1.7.1-py3-none-any.whl", hash = "sha256:2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5"},
+    {file = "PySocks-1.7.1.tar.gz", hash = "sha256:3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0"},
+]
 pytest = [
     {file = "pytest-5.4.3-py3-none-any.whl", hash = "sha256:5c0db86b698e8f170ba4582a492248919255fcd4c79b1ee64ace34301fb589a1"},
     {file = "pytest-5.4.3.tar.gz", hash = "sha256:7979331bfcba207414f5e1263b5a0f8f521d0f457318836a7355531ed1a4c7d8"},
@@ -724,11 +706,11 @@ requests = [
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
 selene = [
-    {file = "selene-2.0.0b2-py3-none-any.whl", hash = "sha256:fd6734f32971969c32a413cea34f9b19057bad8b0547322464bb84f068d57575"},
-    {file = "selene-2.0.0b2.tar.gz", hash = "sha256:26ef91facdd8351c9632e27a3780dca32c5e61987553e2bc5da130e6a5e33020"},
+    {file = "selene-2.0.0b6-py3-none-any.whl", hash = "sha256:ea59dbc0c999516b3b3aeca956a2ec9ce374c58bf8ede9ee94f6ac39a977b284"},
+    {file = "selene-2.0.0b6.tar.gz", hash = "sha256:e1699dc290ae00e5b1a3f99cb34d2108fa8c9ee7764143be9c88096004665c00"},
 ]
 selenium = [
-    {file = "selenium-4.1.0-py3-none-any.whl", hash = "sha256:27e7b64df961d609f3d57237caa0df123abbbe22d038f2ec9e332fb90ec1a939"},
+    {file = "selenium-4.2.0-py3-none-any.whl", hash = "sha256:ba5b2633f43cf6fe9d308fa4a6996e00a101ab9cb1aad6fd91ae1f3dbe57f56f"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
@@ -764,8 +746,8 @@ wcwidth = [
     {file = "wcwidth-0.2.5.tar.gz", hash = "sha256:c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83"},
 ]
 webdriver-manager = [
-    {file = "webdriver_manager-3.5.3-py2.py3-none-any.whl", hash = "sha256:ef4320064bec22df5b2d7ea0509d08a99d3cecd1ddabd190f26f871dfa52a362"},
-    {file = "webdriver_manager-3.5.3.tar.gz", hash = "sha256:33c86736c51839abdcdeed1bbfd1f0d55277411bae4f232fdc9ace0c518e04f4"},
+    {file = "webdriver_manager-3.7.0-py2.py3-none-any.whl", hash = "sha256:ee09f7c5d9c61ca9cf2b78a036355f617f5dede2d68b7d2d77877d1d48df1361"},
+    {file = "webdriver_manager-3.7.0.tar.gz", hash = "sha256:4a7247086b181d3a077a7f0be71b2f8e297d213ddd563ecea263dcb17e4e865f"},
 ]
 wsproto = [
     {file = "wsproto-1.1.0-py3-none-any.whl", hash = "sha256:2218cb57952d90b9fca325c0dcfb08c3bda93e8fd8070b0a17f048e2e47a521b"},

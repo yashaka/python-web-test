@@ -1,51 +1,22 @@
-import logging
 from functools import reduce
-from typing import Tuple, List
+from typing import Tuple, List, ContextManager, Protocol, Callable, Dict, Any
 import allure_commons
 from allure_commons._core import MetaPluginManager
 from allure_commons.utils import uuid4
 
 
-def log_with(
-    *,
-    translations: List[Tuple[str, str]] = (),
-):
-    """
-    returns decorator factory with logging to specified logger
-    with added list of translations
-    to decorate Selene's waiting via config._wait_decorator
-    """
-
-    def decorator_factory(wait):
-        def decorator(for_):
-            def decorated(fn):
-
-                title = f'{wait.entity}: {fn}'
-
-                def translate(initial: str, item: Tuple[str, str]):
-                    old, new = item
-                    return initial.replace(old, new)
-
-                translated_title = reduce(
-                    translate,
-                    translations,
-                    title,
-                )
-
-                with _StepContext(title=translated_title):
-                    return for_(fn)
-
-            return decorated
-
-        return decorator
-
-    return decorator_factory
+class ContextManagerFactory(Protocol):
+    def __call__(
+        self, *, title: str, params: Dict[str, Any], **kwargs
+    ) -> ContextManager:
+        ...
 
 
 class _StepContext:
     def __init__(
         self,
-        title,
+        *,
+        title: str,
         params=None,
         plugin_manager: MetaPluginManager = allure_commons.plugin_manager,
     ):
@@ -69,3 +40,40 @@ class _StepContext:
             exc_val=exc_val,
             exc_tb=exc_tb,
         )
+
+
+def log_with(
+    *,
+    context: ContextManagerFactory = _StepContext,
+    translations: List[Tuple[str, str]] = (),
+):
+    """
+    returns decorator factory with logging to Alure's ContextManager
+    with added list of translations
+    to decorate Selene's waiting via config._wait_decorator
+    """
+
+    def decorator_factory(wait):
+        def decorator(for_):
+            def decorated(fn):
+
+                title = f'{wait.entity}: {fn}'
+
+                def translate(initial: str, item: Tuple[str, str]):
+                    old, new = item
+                    return initial.replace(old, new)
+
+                translated_title = reduce(
+                    translate,
+                    translations,
+                    title,
+                )
+
+                with context(title=translated_title, params={}):
+                    return for_(fn)
+
+            return decorated
+
+        return decorator
+
+    return decorator_factory

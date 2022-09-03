@@ -1,3 +1,4 @@
+import allure_commons
 import pytest
 import allure
 import web_test
@@ -38,7 +39,8 @@ def browser_management():
     browser.config.save_page_source_on_failure = (
         config.settings.save_page_source_on_failure
     )
-    browser.config._wait_decorator = assist.selene.report.allure.log_with(
+    browser.config._wait_decorator = assist.selene.report.log_with(
+        context=allure_commons._allure.StepContext,
         translations=[
             ('browser.element', 'element'),
             ('browser.all', 'all'),

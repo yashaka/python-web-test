@@ -2,34 +2,22 @@ import pytest
 import allure
 import web_test
 from selene.support.shared import browser
+from web_test import assist
 
 
 @pytest.fixture(scope='session', autouse=True)
 def add_reporting_to_selene_steps():
 
-    original_open = browser.open
-
     from web_test.assist.python import monkey
     from selene.support.shared import SharedConfig, SharedBrowser
+
+    original_open = SharedBrowser.open
 
     @monkey.patch_method_in(SharedBrowser)
     def open(self, relative_or_absolute_url: str):
         from web_test.assist.allure import report
 
-        return report.step(original_open)(relative_or_absolute_url)
-
-    @monkey.patch_method_in(SharedConfig)                                       # todo: consider patching Wait explicitly
-    def wait(self, entity):
-        hook = self._inject_screenshot_and_page_source_pre_hooks(
-            self.hook_wait_failure
-        )
-
-        from web_test.assist.selene.report.wait import ReportedWait
-        return ReportedWait(
-            entity,
-            at_most=self.timeout,
-            or_fail_with=hook
-        )
+        return report.step(original_open)(self, relative_or_absolute_url)
 
 
 import config
@@ -44,10 +32,25 @@ def browser_management():
     """
 
     import config
+
     browser.config.base_url = config.settings.base_url
     browser.config.timeout = config.settings.timeout
-    browser.config.save_page_source_on_failure \
-        = config.settings.save_page_source_on_failure
+    browser.config.save_page_source_on_failure = (
+        config.settings.save_page_source_on_failure
+    )
+    browser.config._wait_decorator = assist.selene.report.allure.log_with(
+        translations=[
+            ('browser.element', 'element'),
+            ('browser.all', 'all'),
+            ("'css selector', ", ""),
+            (r"('\ue007',)", "Enter"),
+            ('((', '('),
+            ('))', ')'),
+            (': has ', ': have '),
+            (': have ', ': should have '),
+            (': is ', ': should be'),
+        ],
+    )
 
     browser.config.driver = _driver_from(config.settings)
     browser.config.hold_browser_open = config.settings.hold_browser_open
@@ -73,12 +76,17 @@ def _driver_from(settings: config.Settings) -> WebDriver:
     driver_options = _driver_options_from(settings)
 
     from selenium import webdriver
-    driver = web_test.assist.webdriver_manager.set_up.local(
-        settings.browser_name,
-        driver_options,
-    ) if not settings.remote_url else webdriver.Remote(
-        command_executor=settings.remote_url,
-        options=driver_options,
+
+    driver = (
+        web_test.assist.webdriver_manager.set_up.local(
+            settings.browser_name,
+            driver_options,
+        )
+        if not settings.remote_url
+        else webdriver.Remote(
+            command_executor=settings.remote_url,
+            options=driver_options,
+        )
     )
 
     if settings.maximize_window:
@@ -105,6 +113,7 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
 
     from selenium import webdriver
     from web_test.assist.webdriver_manager import supported
+
     if settings.browser_name in [supported.chrome, supported.chromium]:
         options = webdriver.ChromeOptions()
         options.headless = settings.headless
@@ -117,16 +126,19 @@ def _driver_options_from(settings: config.Settings) -> WebDriverOptions:
         options = webdriver.IeOptions()
 
     from web_test.assist.selenium.typing import EdgeOptions
+
     if settings.browser_name == supported.edge:
         options = EdgeOptions()
 
     from web_test.assist.selenium.typing import OperaOptions
+
     if settings.browser_name == supported.edge:
         options = OperaOptions()
 
     if settings.remote_url:
-        options.set_capability('screenResolution',
-                               settings.remote_screenResolution)
+        options.set_capability(
+            'screenResolution', settings.remote_screenResolution
+        )
         options.set_capability('enableVNC', settings.remote_enableVNC)
         options.set_capability('enableVideo', settings.remote_enableVideo)
         options.set_capability('enableLog', settings.remote_enableLog)
@@ -165,19 +177,25 @@ def pytest_runtest_makereport(item: Item, call: CallInfo):
     # All code prior to yield statement would be ran prior
     # to any other of the same fixtures defined
 
-    outcome = yield  # Run all other pytest_runtest_makereport non wrapped hooks
+    outcome = (
+        yield  # Run all other pytest_runtest_makereport non wrapped hooks
+    )
 
     result = outcome.get_result()
 
     if result.when == 'call' and result.failed:
         last_screenshot = browser.config.last_screenshot
         if last_screenshot and not last_screenshot == prev_test_screenshot:
-            allure.attach.file(source=last_screenshot,
-                               name='screenshot',
-                               attachment_type=allure.attachment_type.PNG)
+            allure.attach.file(
+                source=last_screenshot,
+                name='screenshot',
+                attachment_type=allure.attachment_type.PNG,
+            )
 
         last_page_source = browser.config.last_page_source
         if last_page_source and not last_page_source == prev_test_page_source:
-            allure.attach.file(source=last_page_source,
-                               name='page source',
-                               attachment_type=allure.attachment_type.HTML)
+            allure.attach.file(
+                source=last_page_source,
+                name='page source',
+                attachment_type=allure.attachment_type.HTML,
+            )

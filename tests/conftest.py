@@ -1,6 +1,8 @@
 import allure_commons
 import pytest
 import allure
+from selenium.webdriver import Keys
+
 import web_test
 from selene.support.shared import browser
 from web_test import assist
@@ -45,12 +47,18 @@ def browser_management():
             ('browser.element', 'element'),
             ('browser.all', 'all'),
             ("'css selector', ", ""),
-            (r"('\ue007',)", "Enter"),
             ('((', '('),
             ('))', ')'),
             (': has ', ': have '),
             (': have ', ': should have '),
-            (': is ', ': should be'),
+            (': is ', ': should be '),
+            (' and is ', ' and be '),
+            (' and has ', ' and have '),
+            *[
+                (f"({repr(value)},)", key)
+                for key, value in Keys.__dict__.items()
+                if not key.startswith('__')
+            ],
         ],
     )
 

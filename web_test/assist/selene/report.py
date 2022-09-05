@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import Tuple, List, ContextManager, Protocol, Dict, Any
+from typing import Tuple, Iterable, ContextManager, Protocol, Dict, Any
 
 
 class _ContextManagerFactory(Protocol):
@@ -12,7 +12,7 @@ class _ContextManagerFactory(Protocol):
 def log_with(
     *,
     context: _ContextManagerFactory,
-    translations: List[Tuple[str, str]] = (),
+    translations: Iterable[Tuple[str, str]] = (),
 ):
     """
     returns decorator factory with logging to Alure-like ContextManager

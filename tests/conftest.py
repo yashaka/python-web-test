@@ -1,10 +1,10 @@
 import allure_commons
 import pytest
 import allure
-from selenium.webdriver import Keys
 
 import web_test
 from selene.support.shared import browser
+from selene import support
 from web_test import assist
 
 
@@ -41,25 +41,8 @@ def browser_management():
     browser.config.save_page_source_on_failure = (
         config.settings.save_page_source_on_failure
     )
-    browser.config._wait_decorator = assist.selene.report.log_with(
-        context=allure_commons._allure.StepContext,
-        translations=[
-            ('browser.element', 'element'),
-            ('browser.all', 'all'),
-            ("'css selector', ", ""),
-            ('((', '('),
-            ('))', ')'),
-            (': has ', ': have '),
-            (': have ', ': should have '),
-            (': is ', ': should be '),
-            (' and is ', ' and be '),
-            (' and has ', ' and have '),
-            *[
-                (f"({repr(value)},)", key)
-                for key, value in Keys.__dict__.items()
-                if not key.startswith('__')
-            ],
-        ],
+    browser.config._wait_decorator = support._logging.wait_with(
+        context=allure_commons._allure.StepContext
     )
 
     browser.config.driver = _driver_from(config.settings)
